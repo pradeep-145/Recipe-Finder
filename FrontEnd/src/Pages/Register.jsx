@@ -4,7 +4,7 @@ const Login = () => {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="p-8 shadow-2xl rounded-lg bg-white font-sans max-w-sm w-full">
-                <h1 className="text-4xl text-center mb-6 font-bold text-gray-800">Login</h1>
+                <h1 className="text-4xl text-center mb-6 font-bold text-gray-800">Register</h1>
 
                 <form action="">
                     <div className="relative my-6">
@@ -29,7 +29,7 @@ const Login = () => {
                             placeholder=" "
                         />
                         <label htmlFor="password" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 duration-300 origin-0 peer-placeholder-shown:translate-y-0 peer-focus:translate-y-[-1.5rem] peer-focus:scale-75 peer-focus:text-emerald-600">
-                            Your Password
+                            Enter Password
                         </label>
                     </div>
 
