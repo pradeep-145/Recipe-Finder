@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-const Login = () => {
+
+const Register = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
@@ -84,7 +85,7 @@ const Login = () => {
                         className="w-full py-2 mb-4 text-lg text-white bg-emerald-500 rounded-full hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         type="submit"
                     >
-                        Login
+                        Register
                     </button>
 
                     <div className="text-center">
@@ -98,4 +99,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
