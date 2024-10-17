@@ -1,12 +1,27 @@
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { useState } from 'react';
 const Login = () => {
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    const [confirmPassword,setConfirmPassword] = useState('');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+
+        try {
+            const response = await axios.post('http://localhost:3000/register', { email, password });
+            console.log(response.data);
+        } catch (error) {
+            console.error(error.response.data);
+        }   
+    }
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="p-8 shadow-2xl rounded-lg bg-white font-sans max-w-sm w-full">
                 <h1 className="text-4xl text-center mb-6 font-bold text-gray-800">Register</h1>
 
-                <form action="">
+                <form onSubmit={(e)=>handleSubmit(e)}>
                     <div className="relative my-6">
                         <input
                             type="email"
@@ -14,6 +29,7 @@ const Login = () => {
                             id="email"
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                             placeholder=" "
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <label htmlFor="email" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 duration-300 origin-0 peer-placeholder-shown:translate-y-0 peer-focus:translate-y-[-1.5rem] peer-focus:scale-75 peer-focus:text-emerald-600">
                             Your Email
@@ -27,6 +43,7 @@ const Login = () => {
                             id="password"
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                             placeholder=" "
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <label htmlFor="password" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 duration-300 origin-0 peer-placeholder-shown:translate-y-0 peer-focus:translate-y-[-1.5rem] peer-focus:scale-75 peer-focus:text-emerald-600">
                             Enter Password
@@ -40,6 +57,7 @@ const Login = () => {
                             id="password"
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                             placeholder=" "
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         <label htmlFor="password" className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 duration-300 origin-0 peer-placeholder-shown:translate-y-0 peer-focus:translate-y-[-1.5rem] peer-focus:scale-75 peer-focus:text-emerald-600">
                             Confirm Password

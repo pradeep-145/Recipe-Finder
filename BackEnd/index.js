@@ -2,11 +2,12 @@ const express = require('express');
 const admin = require('firebase-admin');
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = require('firebase/auth');
 const firebase = require('firebase/app');
+const cors=require('cors')
 require('firebase/auth');
 require('dotenv').config()
 const app = express();
 app.use(express.json());
-
+app.use(cors())
 admin.initializeApp({
   credential: admin.credential.cert(require(process.env.ADMIN)),
   databaseURL: process.env.FIREBASE_DATABASE_URL
