@@ -5,18 +5,15 @@ import Home from './Pages/Home';
 import Navbar from './Components/Navbar';
 import Recipes from './Pages/Recipes';
 import Contact from './Pages/Contact';
+import backgroundImage from './assets/background.jpg';
+
 function App() {
-
   return (
-
-
     <div>
-
       <Routes>
         <Route path='/login' element={
           <div className='flex items-center justify-center'>
             <Login />
-
           </div>
         } />
         <Route path='/register' element={
@@ -29,12 +26,12 @@ function App() {
             <div>
               <Navbar searchVisible={false} />
             </div>
-            <div className='flex items-center justify-center'>
-              <Home />
+            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover bg-center min-h-screen  w-screen">
+              <Home/>
             </div>
           </div>
         } />
-      <Route path='/recipes' element={
+        <Route path='/recipes' element={
           <div>
             <div>
               <Navbar searchVisible={true} />
@@ -49,16 +46,14 @@ function App() {
             <div>
               <Navbar searchVisible={false} />
             </div>
-            <div className='flex items-center justify-center'>
+            <div className='flex py-8'>
               <Contact />
             </div>
           </div>
         } />
       </Routes>
     </div>
-
-
-  )
+  );
 }
 
-export default App
+export default App;
