@@ -27,7 +27,7 @@ function App() {
         <Route path='/' element={
           <div>
             <div>
-              <Navbar />
+              <Navbar searchVisible={false} />
             </div>
             <div className='flex items-center justify-center'>
               <Home />
@@ -37,9 +37,9 @@ function App() {
       <Route path='/recipes' element={
           <div>
             <div>
-              <Navbar />
+              <Navbar searchVisible={true} />
             </div>
-            <div className='flex items-center justify-center'>
+            <div className='flex py-8 px-4'>
               <Recipes />
             </div>
           </div>
@@ -47,7 +47,7 @@ function App() {
         <Route path='/contact' element={
           <div>
             <div>
-              <Navbar />
+              <Navbar searchVisible={false} />
             </div>
             <div className='flex items-center justify-center'>
               <Contact />
