@@ -74,7 +74,21 @@ app.post('/login', async (req, res) => {
 app.get('/protected', verifyToken, (req, res) => {
   return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
 });
-app.get('/search',(req,res))
+app.get('/search',(req,res)=>{
+  const {search}=req.body
+  console.log(search)
+  const url=`https://api.edamam.com/search?q=${search}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`
+  fetch(url)
+  .then((response)=>{
+    response.json()
+    .then(data=>{
+      res.json(data.hits)
+    })
+  })
+  .catch((error)=>{
+    console.error(error)
+  })
+})
 app.get('/', (req, res) => {
   res.send('Public route - no authentication needed');
 });
