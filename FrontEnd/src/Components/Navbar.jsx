@@ -12,14 +12,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex shadow-lg">
+    <div className="flex shadow-lg bg-black">
       <div className="flex-grow ">
         <div className="flex justify-between items-center h-16">
           <Link to="/">
             <img src={headerLogo} alt="logo" width={50} height={29} className='m-2 ml-3'/>
           </Link>
-          
-          <button onClick={toggleSidebar} className="text-black focus:outline-none m-2">
+          <button className='bg-red-800 p-2 rounded-full text-white font-mono'> <Link to='/register'>Login/sign-up</Link></button>
+          <button onClick={toggleSidebar} className="text-white focus:outline-none m-2">
             {/* Burger Menu Icon */}
             <svg
               className="w-8 h-8"
@@ -40,7 +40,7 @@ const Sidebar = () => {
       <aside
         className={`fixed right-0 top-0 h-full bg-gray-100 shadow-lg transition-transform transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
-        } duration-300`}
+        } duration-300 `}
       >
         <div className="p-4 flex gap-10 justify-between items-center">
           <button onClick={toggleSidebar} className="text-black ml-10 mt-6 focus:outline-none">

@@ -8,10 +8,12 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-
+    
         try {
-            const response = await axios.post('http://localhost:3000/login', { email, password });
-            console.log(response.data);
+            axios.post('http://localhost:3000/login', { email, password }).then(res=>{
+                
+            })
+            
         } catch (error) {
             console.error(error.response.data);
         }   
@@ -65,6 +67,7 @@ const Login = () => {
                     <button
                         className="w-full py-2 mb-4 text-lg text-white bg-emerald-500 rounded-full hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         type="submit"
+                        onClick={handleSubmit(e)}
                     >
                         Login
                     </button>

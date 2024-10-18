@@ -12,12 +12,12 @@ function App() {
     <div>
       <Routes>
         <Route path='/login' element={
-          <div className='flex items-center justify-center'>
+          <div className='flex items-center bg-black justify-center'>
             <Login />
           </div>
         } />
         <Route path='/register' element={
-          <div className='flex items-center justify-center'>
+          <div className='flex items-center bg-black justify-center'>
             <Register />
           </div>
         } />

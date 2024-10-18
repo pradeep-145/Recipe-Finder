@@ -24,15 +24,15 @@ const Recipes = () => {
         <p className="mt-2 text-lg">Discover new recipes and try them out!</p>
         <div className='flex justify-center items-center w-auto'>
             <input type="text" placeholder="Search" className="border border-gray-300 rounded-full p-2 w-96 focus:ring-gray-400"  onChange={(e)=> setSearch(e.target.value)}/>
-            <button type="submit" className="absolute bg-black text-white px-2 rounded-full ml-2 max-md:right-[250px] right-[780px]"><HiOutlineSearch className='h-6 ' onClick={(e)=>handleSearch(e)}/></button>
+            <button type="submit" className="absolute bg-black text-white px-2 rounded-full ml-2 right-[550px]"><HiOutlineSearch className='h-6' onClick={(e)=>handleSearch(e)}/></button>
           </div>
       </div>
       <div className='flex flex-wrap justify-center items-center mt-4'>
         {recipes.map((recipe, index) => (
-          <div key={index} className='border border-gray-300 rounded-lg p-4 m-2 w-80'>
-`           <img src={recipe.recipe.image}></img>
+          <div key={index} className='border border-gray-300 h-96 rounded-lg p-4 m-2 w-80'>
+`           <img src={recipe.recipe.image} width={250} height={250}></img>
             <h2 className='text-2xl font-bold'>{recipe.recipe.label}</h2>
-            
+
           </div>
         ))}
       </div>
