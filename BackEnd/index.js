@@ -71,6 +71,10 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/protected', verifyToken, (req, res) => {
+  return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
+});
+app.get('/search',(req,res))
 app.get('/', (req, res) => {
   res.send('Public route - no authentication needed');
 });
