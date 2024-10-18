@@ -3,19 +3,9 @@ import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
 import { HiOutlineSearch } from "react-icons/hi";
 
-const Sidebar = ({searchVisible}) => {
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState('');
-  const handleSearch=(e)=>{
-    e.preventDefault();
-    axios.post('http://localhost:3000/search', { search })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error(error.response.data);
-    });
-  }
+
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -28,13 +18,7 @@ const Sidebar = ({searchVisible}) => {
           <Link to="/">
             <img src={headerLogo} alt="logo" width={50} height={29} className='m-2 ml-3'/>
           </Link>
-          {
-            searchVisible&&
-            <div className='flex justify-center items-center'>
-            <input type="text" placeholder="Search" className="border border-gray-300 rounded-full p-2 w-96 focus:ring-gray-400"  onChange={(e)=> setSearch(e.target.value)}/>
-            <button type="submit" className="absolute bg-black text-white px-2 rounded-full ml-2 right-96"><HiOutlineSearch className='h-6 ' onClick={(e)=>handleSearch(e)}/></button>
-          </div>
-          }
+          
           <button onClick={toggleSidebar} className="text-black focus:outline-none m-2">
             {/* Burger Menu Icon */}
             <svg
