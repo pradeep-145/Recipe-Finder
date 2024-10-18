@@ -6,8 +6,11 @@ const cors=require('cors')
 require('firebase/auth');
 require('dotenv').config()
 const app = express();
+
 app.use(express.json());
 app.use(cors())
+
+
 admin.initializeApp({
   credential: admin.credential.cert(require(process.env.ADMIN)),
   databaseURL: process.env.FIREBASE_DATABASE_URL
@@ -66,10 +69,6 @@ app.post('/login', async (req, res) => {
     console.error('Error during login:', error);
     res.status(400).json({ message: error.message });
   }
-});
-
-app.get('/protected', verifyToken, (req, res) => {
-  return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
 });
 
 app.get('/', (req, res) => {
