@@ -6,6 +6,7 @@ import Navbar from './Components/Navbar';
 import Recipes from './Pages/Recipes';
 import Contact from './Pages/Contact';
 import backgroundImage from './assets/background.jpg';
+import AboutUs from './Pages/AboutUs';
 
 function App() {
   return (
@@ -26,8 +27,11 @@ function App() {
             <div>
               <Navbar  login={true}/>
             </div>
-            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover min-h-screen bg-center w-screen">
+            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex py-10 bg-cover min-h-screen bg-center ">
               <Home/>
+            </div>
+            <div>
+              <AboutUs/>
             </div>
           </div>
         } />
@@ -36,8 +40,11 @@ function App() {
             <div>
               <Navbar  />
             </div>
-            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover bg-center min-h-screen  w-screen">
+            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex py-10 bg-cover bg-center min-h-screen ">
               <Home/>
+            </div>
+            <div>
+              <AboutUs/>
             </div>
           </div>
         } />
@@ -46,7 +53,7 @@ function App() {
             <div>
               <Navbar/>
             </div>
-            <div className='flex py-8 px-4'>
+            <div className='flex pt-28 px-4'>
               <Recipes />
             </div>
           </div>
@@ -56,7 +63,7 @@ function App() {
             <div>
               <Navbar  />
             </div>
-            <div className='flex py-8'>
+            <div className='flex pt-28'>
               <Contact />
             </div>
           </div>
