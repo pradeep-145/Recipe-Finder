@@ -26,7 +26,7 @@ function App() {
             <div>
               <Navbar  login={true}/>
             </div>
-            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover bg-center min-h-screen  w-screen">
+            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover min-h-screen bg-center w-screen">
               <Home/>
             </div>
           </div>
