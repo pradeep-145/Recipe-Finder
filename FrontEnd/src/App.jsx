@@ -24,7 +24,17 @@ function App() {
         <Route path='/' element={
           <div>
             <div>
-              <Navbar searchVisible={false} />
+              <Navbar  login={true}/>
+            </div>
+            <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover bg-center min-h-screen  w-screen">
+              <Home/>
+            </div>
+          </div>
+        } />
+        <Route path='/home' element={
+          <div>
+            <div>
+              <Navbar  />
             </div>
             <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex bg-cover bg-center min-h-screen  w-screen">
               <Home/>
@@ -34,7 +44,7 @@ function App() {
         <Route path='/recipes' element={
           <div>
             <div>
-              <Navbar searchVisible={true} />
+              <Navbar/>
             </div>
             <div className='flex py-8 px-4'>
               <Recipes />
@@ -44,7 +54,7 @@ function App() {
         <Route path='/contact' element={
           <div>
             <div>
-              <Navbar searchVisible={false} />
+              <Navbar  />
             </div>
             <div className='flex py-8'>
               <Contact />

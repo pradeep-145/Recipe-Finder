@@ -64,7 +64,7 @@ app.post('/login', async (req, res) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const token = await user.getIdToken();
-    res.status(200).json({ message: 'Login successful', token });
+    res.status(200).json('Success');
   } catch (error) {
     console.error('Error during login:', error);
     res.status(400).json({ message: error.message });

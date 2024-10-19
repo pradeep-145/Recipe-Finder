@@ -3,7 +3,7 @@ import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
 import { HiOutlineSearch } from "react-icons/hi";
 
-const Sidebar = () => {
+const Sidebar = ({login}) => {
   const [isOpen, setIsOpen] = useState(false);
 
 
@@ -12,13 +12,16 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex shadow-lg bg-black">
+    <div className="flex shadow-lg bg-black backdrop-blur-2 *:.">
       <div className="flex-grow ">
         <div className="flex justify-between items-center h-16">
           <Link to="/">
             <img src={headerLogo} alt="logo" width={50} height={29} className='m-2 ml-3'/>
           </Link>
-          <button className='bg-red-800 p-2 rounded-full text-white font-mono'> <Link to='/register'>Login/sign-up</Link></button>
+          {
+            login&&
+            <button className='bg-red-800 p-2 rounded-full text-white font-mono'> <Link to='/register'>Login/Sign-up</Link></button>
+          }
           <button onClick={toggleSidebar} className="text-white focus:outline-none m-2">
             {/* Burger Menu Icon */}
             <svg
@@ -57,9 +60,9 @@ const Sidebar = () => {
           </button>
         </div>
         <nav className="mt-4">
-          <ul className="flex flex-col px-4 gap-4">
+          <ul className="flex flex-col px-4 gap-4 font-bold text-xl">
             <li>
-              <Link to="/" className="text-gray-800 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/home" className="text-gray-800 hover:text-red-800" onClick={toggleSidebar}>
                 Home
               </Link>
             </li>
