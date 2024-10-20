@@ -74,6 +74,11 @@ const Sidebar = ({ login }) => {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link to="/logout" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+                Logout
+              </Link>
+            </li>
           </ul>
         </nav>
       </aside>
