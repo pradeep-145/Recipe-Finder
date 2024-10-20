@@ -11,6 +11,7 @@ const Recipes = () => {
   
   const handleSearch = (e) => {
     axios.get(`http://localhost:3000/search`,{params}).then((response)=>{
+      console.log(response.data)
       setRecipes(response.data)
     }).catch((error)=>{ 
       console.error(error.response.data)

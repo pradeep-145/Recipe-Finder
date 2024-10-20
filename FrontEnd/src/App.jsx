@@ -7,6 +7,7 @@ import Recipes from './Pages/Recipes';
 import Contact from './Pages/Contact';
 import backgroundImage from './assets/background.jpg';
 import AboutUs from './Pages/AboutUs';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
             <div>
               <AboutUs/>
             </div>
+            <div>
+              <Footer/>
+            </div>
           </div>
         } />
         <Route path='/home' element={
@@ -46,6 +50,9 @@ function App() {
             <div>
               <AboutUs/>
             </div>
+            <div>
+              <Footer/>
+            </div>
           </div>
         } />
         <Route path='/recipes' element={
@@ -53,8 +60,11 @@ function App() {
             <div>
               <Navbar/>
             </div>
-            <div className='flex pt-28 bg-gray-600 h-screen px-4'>
+            <div className='flex pt-28 bg-lime-100 h-screen px-4'>
               <Recipes />
+            </div>
+            <div>
+              <Footer/>
             </div>
           </div>
         } />
@@ -65,6 +75,9 @@ function App() {
             </div>
             <div className='flex pt-28'>
               <Contact />
+            </div>
+            <div>
+              <Footer/>
             </div>
           </div>
         } />

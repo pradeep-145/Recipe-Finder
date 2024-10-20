@@ -12,7 +12,6 @@ const Sidebar = ({ login }) => {
   return (
 
     <div className="relative">
-      {/* Blurry Navbar */}
       <div className="fixed top-0 left-0 w-full flex justify-between items-center h-16 px-4 py-2 bg-black bg-opacity-60 backdrop-blur-md shadow-lg z-50">
         <Link to="/">
           <img src={headerLogo} alt="logo" width={50} height={29} className="m-2" />
