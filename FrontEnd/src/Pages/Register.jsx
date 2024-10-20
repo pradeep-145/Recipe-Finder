@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
+    const navigate=useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(email);
         
 
         try {
             const response = await axios.post('http://localhost:3000/register', { email, password });
-            console.log(response.data);
+            if(response.data.message==='User registered successfully'){
+                navigate('/login')
+            }
         } catch (error) {
             console.error(error.response.data);
         }   
@@ -50,7 +54,7 @@ const Register = () => {
                         <input
                             type="password"
                             name="password"
-                            id="password"
+                            id="confpassword"
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-800 focus:outline-none"
                             placeholder="Confirm Password"
                             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -77,6 +81,7 @@ const Register = () => {
                     <button
                        className="w-full py-2 mb-4 text-lg text-white bg-red-700 rounded-full hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500"
                         type="button"
+                        onClick={(e)=>handleSubmit(e)}
                     >
                         Register
                     </button>

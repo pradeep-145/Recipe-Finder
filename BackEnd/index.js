@@ -51,6 +51,7 @@ app.post('/register', async (req, res) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const token = await user.getIdToken();
+    console.log('User registered successfully');
     res.status(201).json({ message: 'User registered successfully', token });
   } catch (error) {
     console.error('Error during registration:', error);
