@@ -12,7 +12,7 @@ const Sidebar = ({login}) => {
   };
 
   return (
-    <div className="flex shadow-lg bg-black backdrop-blur-2 *:.">
+    <div className="flex shadow-lg bg-black backdrop-blur-2 ">
       <div className="flex-grow ">
         <div className="flex justify-between items-center h-16">
           <Link to="/">
