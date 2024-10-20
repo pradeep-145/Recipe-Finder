@@ -75,7 +75,7 @@ app.get('/protected', verifyToken, (req, res) => {
   return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
 });
 app.get('/search',(req,res)=>{
-  const {search}=req.body
+  const search=req.query.search;
   console.log(search)
   const url=`https://api.edamam.com/search?q=${search}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}`
   fetch(url)

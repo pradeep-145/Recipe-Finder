@@ -5,9 +5,12 @@ import { HiOutlineSearch } from "react-icons/hi";
 const Recipes = () => {
   const [recipes,setRecipes] =useState([])
   const [search,setSearch] =useState('')
+  const params={
+    search:search
+  }
   
   const handleSearch = (e) => {
-    axios.get('http://localhost:3000/search',{search}).then((response)=>{
+    axios.get(`http://localhost:3000/search`,{params}).then((response)=>{
       console.log(response.data)
       setRecipes(response.data)
     }).catch((error)=>{ 
