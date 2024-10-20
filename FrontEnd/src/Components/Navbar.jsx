@@ -17,7 +17,7 @@ const Sidebar = ({ login }) => {
           <img src={headerLogo} alt="logo" width={50} height={29} className="m-2" />
         </Link>
         {login && (
-          <button className="bg-transparent border-2 hover:border-gray-400 hover:text-gray-400 p-2 rounded-full text-white font-mono ml-[75%]">
+          <button className="bg-transparent border-2 hover:border-gray-400 hover:text-gray-400 p-2 rounded-full text-white font-mono ml-[70%]">
             <Link to="/register">Login/SignUp</Link>
           </button>
         )}
