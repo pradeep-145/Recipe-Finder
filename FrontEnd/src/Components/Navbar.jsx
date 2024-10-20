@@ -10,29 +10,7 @@ const Sidebar = ({ login }) => {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="flex shadow-lg bg-black backdrop-blur-2 ">
-      <div className="flex-grow ">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/">
-            <img src={headerLogo} alt="logo" width={50} height={29} className='m-2 ml-3'/>
-          </Link>
-          {
-            login&&
-            <button className='bg-red-800 p-2 rounded-full text-white font-mono'> <Link to='/register'>Login/Sign-up</Link></button>
-          }
-          <button onClick={toggleSidebar} className="text-white focus:outline-none m-2">
-            {/* Burger Menu Icon */}
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-=======
+
     <div className="relative">
       {/* Blurry Navbar */}
       <div className="fixed top-0 left-0 w-full flex justify-between items-center h-16 px-4 py-2 bg-black bg-opacity-60 backdrop-blur-md shadow-lg z-50">
@@ -42,7 +20,7 @@ const Sidebar = ({ login }) => {
         {login && (
           <button className="bg-transparent border-2 hover:border-gray-400 hover:text-gray-400 p-2 rounded-full text-white font-mono ml-[75%]">
             <Link to="/register">Login/SignUp</Link>
->>>>>>> a08f717a509a50192542c1a9969c9f9dd792ce40
+
           </button>
         )}
         <button onClick={toggleSidebar} className="text-white hover:text-gray-400 focus:outline-none m-2">
@@ -61,7 +39,7 @@ const Sidebar = ({ login }) => {
 
       {/* Sidebar (No Blur) */}
       <aside
-        className={`fixed right-0 top-0 h-full bg-gray-300 shadow-lg transition-transform transform ${
+        className={`fixed right-0 top-0 h-full bg-black bg-opacity-60  shadow-lg transition-transform transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } duration-300 z-40`}
       >
@@ -82,17 +60,17 @@ const Sidebar = ({ login }) => {
         <nav className="mt-4">
           <ul className="flex flex-col px-4 gap-4 font-bold text-xl">
             <li>
-              <Link to="/home" className="text-gray-800 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/home" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/recipes" className="text-gray-800 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/recipes" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Recipes
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="text-gray-800 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/contact" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Contact
               </Link>
             </li>

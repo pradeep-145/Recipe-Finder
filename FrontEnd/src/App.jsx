@@ -53,7 +53,7 @@ function App() {
             <div>
               <Navbar/>
             </div>
-            <div className='flex pt-28 px-4'>
+            <div className='flex pt-28 bg-gray-600 h-screen px-4'>
               <Recipes />
             </div>
           </div>
