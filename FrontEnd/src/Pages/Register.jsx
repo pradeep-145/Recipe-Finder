@@ -81,7 +81,13 @@ const Register = () => {
                     <button
                        className="w-full py-2 mb-4 text-lg text-white bg-red-700 rounded-full hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500"
                         type="button"
-                        onClick={(e)=>handleSubmit(e)}
+                        onClick={(e)=>{
+                            if(password===confirmPassword){
+                                handleSubmit(e)
+                            }
+                            else{
+                                alert('Passwords do not match')
+                            }}}
                     >
                         Register
                     </button>
