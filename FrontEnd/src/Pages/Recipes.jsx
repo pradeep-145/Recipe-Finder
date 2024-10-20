@@ -26,7 +26,7 @@ const Recipes = () => {
         <h1 className="text-4xl font-bold">Recipes</h1>
         <p className="mt-2 text-lg">Discover new recipes and try them out!</p>
         <div className='flex justify-center items-center w-auto mt-5'>
-            <input type="text" placeholder=" Search" className="border border-gray-300 rounded-full p-2 w-96 focus:ring-gray-400"  onChange={(e)=> setSearch(e.target.value)}/>
+            <input type="text" placeholder=" Search" className="border border-gray-500 rounded-full p-2 w-96 focus:ring-gray-400"  onChange={(e)=> setSearch(e.target.value)}/>
             <button type="submit" className="absolute bg-black text-white px-2 rounded-full ml-2 right-[460px]"><HiOutlineSearch className='h-6' onClick={(e)=>handleSearch(e)}/></button>
           </div>
       </div>
