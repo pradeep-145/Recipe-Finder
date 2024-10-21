@@ -34,7 +34,7 @@ function App() {
             <div>
               <AboutUs/>
             </div>
-            <div>
+            <div className='bottom-0  w-screen'>
               <Footer/>
             </div>
           </div>
@@ -50,20 +50,20 @@ function App() {
             <div>
               <AboutUs/>
             </div>
-            <div>
+            <div className='bottom-0  w-screen'>
               <Footer/>
             </div>
           </div>
         } />
         <Route path='/recipes' element={
-          <div>
+          <div >
             <div>
               <Navbar/>
             </div>
-            <div className='flex pt-28 bg-lime-100 h-screen px-4'>
+            <div className='flex pt-28 bg-lime-100 h-full px-4'>
               <Recipes />
             </div>
-            <div>
+            <div className='bottom-0  w-screen m-0'>
               <Footer/>
             </div>
           </div>
@@ -73,10 +73,10 @@ function App() {
             <div>
               <Navbar  />
             </div>
-            <div className='flex pt-28'>
+            <div className='flex h-[80vh] pt-28'>
               <Contact />
             </div>
-            <div>
+            <div className='  bottom-0'>
               <Footer/>
             </div>
           </div>
