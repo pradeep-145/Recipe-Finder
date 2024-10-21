@@ -2,7 +2,7 @@ import { useState } from 'react';
 import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ login }) => {
+const Sidebar = ({ login,logout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -73,11 +73,14 @@ const Sidebar = ({ login }) => {
                 Contact
               </Link>
             </li>
-            <li>
-              <Link to="/logout" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+            {
+logout&&
+              <li>
+              <Link to="/" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Logout
               </Link>
             </li>
+            }
           </ul>
         </nav>
       </aside>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import x600 from '../assets/600x400.jpg';
 const AboutUs = () => {
   return (
     <div className="bg-gray-100 py-12 px-4 lg:px-8">
@@ -15,9 +15,9 @@ const AboutUs = () => {
         
         <div className="flex justify-center">
           <img
-            src="https://via.placeholder.com/600x400" 
+            src={x600} 
             alt="Team cooking together"
-            className="rounded-lg shadow-lg max-w-full h-auto"
+            className="rounded-lg shadow-lg w-[600px] h-[400px] object-cover"
           />
         </div>
         

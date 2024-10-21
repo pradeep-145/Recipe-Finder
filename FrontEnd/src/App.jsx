@@ -34,7 +34,7 @@ function App() {
             <div>
               <AboutUs/>
             </div>
-            <div className='bottom-0  w-screen'>
+            <div className='bottom-0  w-full'>
               <Footer/>
             </div>
           </div>
@@ -42,7 +42,7 @@ function App() {
         <Route path='/home' element={
           <div>
             <div>
-              <Navbar  />
+              <Navbar logout={true} />
             </div>
             <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex py-10 bg-cover bg-center min-h-screen ">
               <Home/>
@@ -50,7 +50,7 @@ function App() {
             <div>
               <AboutUs/>
             </div>
-            <div className='bottom-0  w-screen'>
+            <div className='bottom-0  w-full'>
               <Footer/>
             </div>
           </div>
@@ -58,12 +58,12 @@ function App() {
         <Route path='/recipes' element={
           <div >
             <div>
-              <Navbar/>
+              <Navbar logout={true}/>
             </div>
             <div className='flex pt-28 bg-lime-100 h-full px-4'>
               <Recipes />
             </div>
-            <div className='bottom-0  w-screen m-0'>
+            <div className='bottom-0  w-full m-0'>
               <Footer/>
             </div>
           </div>
@@ -71,7 +71,7 @@ function App() {
         <Route path='/contact' element={
           <div>
             <div>
-              <Navbar  />
+              <Navbar logout={true}  />
             </div>
             <div className='flex h-[80vh] pt-28'>
               <Contact />
