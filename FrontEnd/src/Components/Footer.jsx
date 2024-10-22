@@ -6,7 +6,7 @@ import copyrightSign from '../assets/copyright.svg';
 
 const Footer = () => {
   return (
-    <footer className="max-container px-2 bg-slate-200">
+    <footer className="max-container px-2  bg-slate-200">
       <div className="flex justify-between items-start gap-20 ml-3 flex-wrap max-lg:flex-col ">
         <div className="flex flex-col items-start mt-2">
           <a href="/">
@@ -28,14 +28,14 @@ const Footer = () => {
         </div>
         </div>
         
-        <div className='flex justify-between text-white-400 mt-2 max-sm:flex-col max-sm:items-center'>
+        <div className='flex justify-between text-black mt-2 max-sm:flex-col max-sm:items-center'>
         <div className='flex flex-1 justify-start items-center gap-2 font-montserrat cursor-pointer'>
           <img
             src={copyrightSign}
             alt='copyright sign'
             width={20}
             height={20}
-            className='rounded-full m-0'
+            className='rounded-full m-0 bg-black'
           />
           <p>Copyright. All rights reserved.</p>
         </div>
