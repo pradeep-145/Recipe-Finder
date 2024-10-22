@@ -8,9 +8,12 @@ import Contact from './Pages/Contact';
 import backgroundImage from './assets/background.jpg';
 import AboutUs from './Pages/AboutUs';
 import Footer from './Components/Footer';
+import  WishList  from './Pages/WishList';
+import { WishlistProvider } from './Pages/WishlistContext';
 
 function App() {
   return (
+    <WishlistProvider>
     <div>
       <Routes>
         <Route path='/login' element={
@@ -23,6 +26,7 @@ function App() {
             <Register />
           </div>
         } />
+       
         <Route path='/' element={
           <div>
             <div>
@@ -73,8 +77,21 @@ function App() {
             <div>
               <Navbar logout={true}  />
             </div>
-            <div className='flex h-[80vh] pt-28'>
+            <div className='flex h-[80vh] pt-28 bg-lime-100'>
               <Contact />
+            </div>
+            <div className='  bottom-0'>
+              <Footer/>
+            </div>
+          </div>
+        } />
+        <Route path='/wishlist' element={
+          <div>
+            <div>
+              <Navbar logout={true}  />
+            </div>
+            <div className='flex h-[80vh] pt-28 bg-lime-100'>
+              <WishList />
             </div>
             <div className='  bottom-0'>
               <Footer/>
@@ -83,7 +100,9 @@ function App() {
         } />
       </Routes>
     </div>
+    </WishlistProvider>
   );
+
 }
 
 export default App;
