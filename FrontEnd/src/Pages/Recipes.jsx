@@ -19,7 +19,9 @@ const Recipes = () => {
       axios.get(`http://localhost:3000/search`,{search:'veg'}).then((response)=>{
         console.log(response.data)
         setRecipes(response.data)
-        setLoading(false)
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000);
       }).catch((error)=>{ 
         console.error(error.response.data)
       }
