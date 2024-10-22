@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
+import { ToastContainer,Bounce, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Sidebar = ({ login, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const notify = () => toast.success('Logging you out!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+    });
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -68,11 +81,14 @@ const Sidebar = ({ login, logout }) => {
                 Recipes<hr/>
               </Link>
             </li>
+            {
+              logout &&
             <li>
               <Link to="/wishlist" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Wishlist<hr/>
               </Link>
             </li>
+            }
             <li>
               <Link to="/contact" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Contact<hr/>
@@ -82,7 +98,7 @@ const Sidebar = ({ login, logout }) => {
             {
               logout &&
               <li>
-                <Link to="/" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+                <Link to="/" className="text-gray-100 hover:text-red-800" onClick={() => { toggleSidebar(); notify(); }}>
                   Logout<hr/>
                 </Link>
               </li>
@@ -90,6 +106,7 @@ const Sidebar = ({ login, logout }) => {
           </ul>
         </nav>
       </aside>
+            <ToastContainer/>
     </div>
   );
 };
