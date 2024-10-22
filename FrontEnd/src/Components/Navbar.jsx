@@ -69,7 +69,7 @@ const Sidebar = ({ login, logout }) => {
               </Link>
             </li>
             <li>
-              <Link to="/wishlist" className="text-gray-100 hover:text-red-800">
+              <Link to="/wishlist" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
                 Wishlist<hr/>
               </Link>
             </li>
