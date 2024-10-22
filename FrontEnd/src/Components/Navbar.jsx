@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
+import { ToastContainer,Bounce, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Sidebar = ({ login,logout }) => {
+const Sidebar = ({ login, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const notify = () => toast.success('Logging you out!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+    });
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -13,7 +26,8 @@ const Sidebar = ({ login,logout }) => {
 
     <div className="relative">
       <div className="fixed top-0 left-0 w-full flex justify-between items-center h-16 px-4 py-2 bg-black bg-opacity-60 backdrop-blur-md shadow-lg z-50">
-        <Link to="/">
+        
+        <Link to="/home">
           <img src={headerLogo} alt="logo" width={50} height={29} className="m-2" />
         </Link>
         {login && (
@@ -38,9 +52,8 @@ const Sidebar = ({ login,logout }) => {
 
       {/* Sidebar (No Blur) */}
       <aside
-        className={`fixed right-0 top-0 h-full bg-black bg-opacity-60  shadow-lg transition-transform transform ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        } duration-300 z-40`}
+        className={`fixed right-0 top-0 h-full bg-black bg-opacity-60  shadow-lg transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          } duration-300 z-40`}
       >
         <div className="p-4 flex justify-between items-center">
           <button onClick={toggleSidebar} className="text-black ml-10 mt-6 focus:outline-none">
@@ -60,30 +73,40 @@ const Sidebar = ({ login,logout }) => {
           <ul className="flex flex-col px-4 gap-4 font-bold text-xl">
             <li>
               <Link to="/home" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
-                Home
+                Home<hr/>
               </Link>
             </li>
             <li>
               <Link to="/recipes" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
-                Recipes
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
-                Contact
+                Recipes<hr/>
               </Link>
             </li>
             {
-logout&&
-              <li>
-              <Link to="/" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
-                Logout
+              logout &&
+            <li>
+              <Link to="/wishlist" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+                Wishlist<hr/>
               </Link>
             </li>
+            }
+            <li>
+              <Link to="/contact" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+                Contact<hr/>
+              </Link>
+            </li>
+
+            {
+              logout &&
+              <li>
+                <Link to="/" className="text-gray-100 hover:text-red-800" onClick={() => { toggleSidebar(); notify(); }}>
+                  Logout<hr/>
+                </Link>
+              </li>
             }
           </ul>
         </nav>
       </aside>
+            <ToastContainer/>
     </div>
   );
 };
