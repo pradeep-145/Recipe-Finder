@@ -3,8 +3,8 @@ import axios from 'axios';
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import DisplayRecipe from '../Components/DisplayRecipe';
-import Lottie from 'react-lottie'; // Import Lottie
-import animationData from '../assets/loadingAnimation.json'; // Import the Lottie JSON
+import Lottie from 'react-lottie';
+import animationData from '../assets/loadingAnimation.json'; 
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -93,10 +93,10 @@ const Recipes = () => {
         </form>
       </div>
 
-      <div className='flex flex-wrap justify-center items-center mt-4'>
+      <div className='flex flex-wrap justify-center items-center mt-4 gap-4'>
         {loading ? (
           <div className='flex justify-center items-center h-screen'>
-            {/* Lottie Animation */}
+           
             <Lottie options={defaultOptions} height={400} width={400} />
           </div>
         ) : (
@@ -107,7 +107,7 @@ const Recipes = () => {
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
                 <h2 className='text-xl font-bold mt-4'>{recipe.strMeal}</h2>
                 <hr className='my-2'/>
-                <div className="flex justify-between items-center my-2">
+                <div className="flex justify-between items-center mt-6">
                   <button 
                     className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
                     onClick={() => toggleWishlist(recipe)} 
