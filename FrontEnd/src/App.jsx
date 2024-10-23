@@ -10,6 +10,7 @@ import AboutUs from './Pages/AboutUs';
 import Footer from './Components/Footer';
 import  WishList  from './Pages/WishList';
 import { WishlistProvider } from './Pages/WishlistContext';
+import Landing from './Pages/Landing';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
               <Navbar  login={true}/>
             </div>
             <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex py-10 bg-cover min-h-screen bg-center ">
-              <Home/>
+              <Landing/>
             </div>
             <div>
               <AboutUs/>

@@ -104,7 +104,7 @@ const Recipes = () => {
       {
       Displayrecipe&&
       <div>
-        <DisplayRecipe recipe={recipe}></DisplayRecipe>
+        <DisplayRecipe recipe={recipe} setDisplayrecipe={()=>setDisplayrecipe()}></DisplayRecipe>
 
       </div>}
     </div>
