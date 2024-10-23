@@ -10,13 +10,15 @@ const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-  const [wishlist, setWishlist] = useState([]); 
+  const [wishlist, setWishlist] = useState([]); // Keep wishlist as an array of recipe IDs
   const [Displayrecipe, setDisplayrecipe] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
-
+  const token=localStorage.getItem('token')
+  
   useEffect(() => {
     setLoading(true);
+    // Fetch recipes based on search term
     axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
       .then((response) => {
         setRecipes(response.data.meals);
@@ -26,7 +28,35 @@ const Recipes = () => {
         console.error(error.response.data);
         setLoading(false);
       });
-  }, []);
+
+    // Fetch wishlist from backend
+    axios.get('http://localhost:3000/wishlist',{
+      headers:{
+        'Authorization':`Bearer ${token}`
+      }
+    }).then(response => {
+      setWishlist(response.data); // Set wishlist as array of recipe IDs
+    }).catch(error => console.error(error.response.data));
+
+  }, [search]);
+  const handleWishlist = async (recipe, isWishlisted) => {
+    try {
+      if (isWishlisted) {
+        // Remove from wishlist
+        const response = await axios.delete(`http://localhost:3000/wishlist/${recipe.idMeal}`,{headers:{
+          'Authorization':`Bearer ${token}`
+        }});
+        setWishlist(response.data); 
+      } else {
+        const response = await axios.post('http://localhost:3000/wishlist', {recipe:recipe,headers:{
+          'Authorization':`Bearer ${token}`
+        } });
+        setWishlist(response.data); 
+      }
+    } catch (error) {
+      console.error(error.response.data);
+    }
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -34,22 +64,12 @@ const Recipes = () => {
     if (search) {
       try {
         const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
-        console.log('response:', response.data.meals);
         setRecipes(response.data.meals);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching meals:', error);
         setLoading(false);
       }
-    }
-  };
-
-  const toggleWishlist = (recipe) => {
-    const isAlreadyInWishlist = wishlist.includes(recipe);
-    if (isAlreadyInWishlist) {
-      setWishlist(wishlist.filter(item => item !== recipe)); 
-    } else {
-      setWishlist([...wishlist, recipe]);
     }
   };
 
@@ -101,7 +121,7 @@ const Recipes = () => {
           </div>
         ) : (
           recipes.map((recipe) => {
-            const isWishlisted = wishlist.includes(recipe);
+            const isWishlisted = wishlist.includes(recipe.idMeal); // Check if recipe is in wishlist
             return (
               <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
@@ -110,7 +130,7 @@ const Recipes = () => {
                 <div className="flex justify-between items-center mt-6">
                   <button 
                     className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
-                    onClick={() => toggleWishlist(recipe)} 
+                    onClick={() => handleWishlist(recipe, isWishlisted)} 
                   >
                     {isWishlisted ? <FaHeart /> : <FaRegHeart />}
                   </button>

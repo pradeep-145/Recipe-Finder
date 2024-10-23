@@ -10,3 +10,5 @@ const WishlistModel=mongoose.Schema({
         required:true
     }]
 })
+
+module.exports=mongoose.model('Wishlist',WishlistModel)
