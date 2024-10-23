@@ -14,26 +14,28 @@ const Recipes = () => {
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios.get(`http://localhost:3000/search`, { search: 'veg' })
-  //     .then((response) => {
-  //       setRecipes(response.data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error.response.data);
-  //       setLoading(false);
-  //     });
-  // }, []);
+  useEffect(() => {
+    setLoading(true);
+    axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
+      .then((response) => {
+        setRecipes(response.data.meals);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error.response.data);
+        setLoading(false);
+      });
+  }, []);
 
   const handleSearch = async (e) => {
     e.preventDefault()
+      setLoading(true);
     if (search) {
       try {
         const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
         console.log('response:', response.data.meals);
         setRecipes(response.data.meals);
+              setLoading(false);
       } catch (error) {
         console.error('Error fetching meals:', error);
       }
@@ -43,11 +45,9 @@ const Recipes = () => {
 
   // const handleSearch = (e) => {
   //   e.preventDefault();
-  //   setLoading(true);
   //   axios.get(`http://localhost:3000/search`, { params: { search } })
   //     .then((response) => {
   //       setRecipes(response.data);
-  //       setLoading(false);
   //     })
   //     .catch((error) => {
   //       console.error(error.response.data);

@@ -17,8 +17,6 @@ const DisplayRecipe = ({recipe,setDisplayrecipe, ingredients}) => {
           ))}
         </ul>
       </div>
-
-      {/* Instructions Section */}
       <div className="mt-4">
         <h2 className="text-xl font-semibold">Instructions</h2>
         <p className="mt-2">{recipe.strInstructions}</p>
