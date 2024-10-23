@@ -4,6 +4,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Spinner from '../assets/load.svg';
 import DisplayRecipe from '../Components/DisplayRecipe';
+
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
@@ -11,33 +12,48 @@ const Recipes = () => {
   const [wishlist, setWishlist] = useState([]); 
   const [Displayrecipe, setDisplayrecipe] = useState(false);
   const [recipe, setRecipe] = useState({});
+  const [ingredients, setIngredients] = useState([]);
 
-  useEffect(() => {
-    setLoading(true);
-    axios.get(`http://localhost:3000/search`, { search: 'veg' })
-      .then((response) => {
-        setRecipes(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios.get(`http://localhost:3000/search`, { search: 'veg' })
+  //     .then((response) => {
+  //       setRecipes(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error.response.data);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    axios.get(`http://localhost:3000/search`, { params: { search } })
-      .then((response) => {
-        setRecipes(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-        setLoading(false);
-      });
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    if (search) {
+      try {
+        const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
+        console.log('response:', response.data.meals);
+        setRecipes(response.data.meals);
+      } catch (error) {
+        console.error('Error fetching meals:', error);
+      }
+    }
   };
+
+
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   axios.get(`http://localhost:3000/search`, { params: { search } })
+  //     .then((response) => {
+  //       setRecipes(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error.response.data);
+  //       setLoading(false);
+  //     });
+  // };
 
   const toggleWishlist = (recipe) => {
     const isAlreadyInWishlist = wishlist.includes(recipe);
@@ -47,6 +63,20 @@ const Recipes = () => {
       setWishlist([...wishlist, recipe]);
     }
   };
+  const getIngredients = (meal) => {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = meal[`strIngredient${i}`];
+      const measure = meal[`strMeasure${i}`];
+
+      
+      if (ingredient && ingredient.trim() !== '') {
+        ingredients.push(`${measure ? measure : ''} ${ingredient}`.trim());
+      }
+    }
+    return ingredients;
+  };
+
 
   return (
     <div className='flex flex-col flex-1 mb-10'>
@@ -67,23 +97,25 @@ const Recipes = () => {
       </div>
 
       <div className='flex flex-wrap justify-center items-center mt-4'>
-        {recipes.map((recipe, index) => {
+        {recipes.map((recipe) => {
           const isWishlisted = wishlist.includes(recipe.recipe);
           return (
-            <div key={index} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
-              <img src={recipe.recipe.image} className='w-full rounded-lg' alt={recipe.recipe.label} />
-              <h2 className='text-xl font-bold mt-4'>{recipe.recipe.label}</h2>
+            <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
+              <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
+              <h2 className='text-xl font-bold mt-4'>{recipe.strMeal}</h2>
               <hr className='my-2'/>
               <div className="flex justify-between items-center my-2">
                 <button 
                   className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
-                  onClick={() => toggleWishlist(recipe.recipe)} 
+                  onClick={() => toggleWishlist(recipe)} 
                 >
                   {isWishlisted ? <FaHeart /> : <FaRegHeart />}
                 </button>
                 <button className="bg-lime-700 text-white px-4 py-2 rounded-lg"
                 onClick={()=>{setDisplayrecipe(true)
-                setRecipe(recipe.recipe)
+                  setIngredients(getIngredients(recipe))
+                  setRecipe(recipe)
+
                 }}
                 >
                   View Recipe
@@ -103,7 +135,7 @@ const Recipes = () => {
       {
       Displayrecipe&&
       <div>
-        <DisplayRecipe recipe={recipe} setDisplayrecipe={()=>setDisplayrecipe()}></DisplayRecipe>
+        <DisplayRecipe recipe={recipe} setDisplayrecipe={()=>setDisplayrecipe()} ingredients={ingredients}></DisplayRecipe>
 
       </div>}
     </div>
