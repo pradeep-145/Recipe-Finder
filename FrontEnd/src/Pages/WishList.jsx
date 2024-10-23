@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { WishlistContext } from './WishlistContext.jsx';
+import React, { useContext, useState } from 'react';
 
 const WishList = () => {
-  const { wishlist } = useContext(WishlistContext); // Access wishlist from context
+  const [wishlist,setWishlist]=useState([]);
 
   return (
     <div className='flex flex-col items-center justify-center'>

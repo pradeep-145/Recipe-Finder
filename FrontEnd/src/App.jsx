@@ -9,13 +9,11 @@ import backgroundImage from './assets/background.jpg';
 import AboutUs from './Pages/AboutUs';
 import Footer from './Components/Footer';
 import  WishList  from './Pages/WishList';
-import { WishlistProvider } from './Pages/WishlistContext';
 import Landing from './Pages/Landing';
 import DisplayRecipe from './Components/DisplayRecipe';
 
 function App() {
   return (
-    <WishlistProvider>
     <div>
       <Routes>
         <Route path='/login' element={
@@ -102,7 +100,6 @@ function App() {
         } />
       </Routes>
     </div>
-    </WishlistProvider>
   );
 
 }

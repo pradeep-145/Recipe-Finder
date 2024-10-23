@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import loadingA from '../assets/loading.svg';
 import Spinner from '../assets/load.svg';
 import DisplayRecipe from '../Components/DisplayRecipe';
 const Recipes = () => {
