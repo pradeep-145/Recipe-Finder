@@ -3,6 +3,7 @@ const admin = require('firebase-admin');
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = require('firebase/auth');
 const firebase = require('firebase/app');
 const mongoose =require('mongoose')
+const wish=require('./models/WishlistModel')
 const cors=require('cors')
 require('firebase/auth');
 require('dotenv').config()
@@ -32,7 +33,7 @@ const auth = getAuth();
 
 const verifyToken = async (req, res, next) => {
   const idToken = req.headers.authorization?.split('Bearer ')[1]; 
-  // console.log(idToken)
+  console.log(idToken)
   if (!idToken) {
     return res.status(403).send('Unauthorized');
   }
@@ -40,6 +41,7 @@ const verifyToken = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken;
+    console.log(decodedToken.email)
     console.log('User authenticated successfully');
     next();
   } catch (error) {
@@ -76,9 +78,25 @@ app.post('/login', async (req, res) => {
   }
 });
 app.get('/protected', verifyToken, (req, res) => {
+  
   return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
 });
+app.post('/wishlist',verifyToken,(req,res)=>{
+  console.log('hello')
+  wish.create({user:req.user.email,recipe:req.body.recipe}).then(()=>console.log('Wishlist updated')).catch((error)=>console.error(error))
+  res.send('Wishlist updated')
+}
+)
+app.delete('/wishlist/:recipeId',verifyToken,(req,res)=>{
+  wish.deleteOne({user:req.user.email,recipe  :req.params.recipeId}).then(()=>console.log('Wishlist updated')).catch((error)=>console.error(error))
+  res.send('Wishlist updated')
+}
+)
+
+app.get('/wishlist',verifyToken,(req,res)=>{
   
+  wish.find({user:req.user.email}).then((data)=>res.send(data)).catch((error)=>console.error(error))
+})
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

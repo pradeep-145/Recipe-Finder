@@ -1,16 +1,15 @@
-import { Routes, Route } from 'react-router-dom';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-import Home from './Pages/Home';
-import Navbar from './Components/Navbar';
-import Recipes from './Pages/Recipes';
-import Contact from './Pages/Contact';
+import { Route, Routes } from 'react-router-dom';
 import backgroundImage from './assets/background.jpg';
-import AboutUs from './Pages/AboutUs';
 import Footer from './Components/Footer';
-import  WishList  from './Pages/WishList';
+import Navbar from './Components/Navbar';
+import AboutUs from './Pages/AboutUs';
+import Contact from './Pages/Contact';
+import Home from './Pages/Home';
 import Landing from './Pages/Landing';
-import DisplayRecipe from './Components/DisplayRecipe';
+import Login from './Pages/Login';
+import Recipes from './Pages/Recipes';
+import Register from './Pages/Register';
+import WishList from './Pages/WishList';
 
 function App() {
   return (
