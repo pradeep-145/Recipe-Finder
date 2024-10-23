@@ -82,7 +82,7 @@ app.get('/protected', verifyToken, (req, res) => {
 app.get('/search',(req,res)=>{
   const search=req.query.search;
   console.log(search)
-  const url=`https://api.edamam.com/search?q=${search}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&from=0&to=30`/
+  const url=`https://api.edamam.com/search?q=${search}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&from=0&to=30`
   fetch(url)
   .then((response)=>{
     response.json()
