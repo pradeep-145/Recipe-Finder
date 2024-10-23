@@ -2,6 +2,7 @@ const express = require('express');
 const admin = require('firebase-admin');
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = require('firebase/auth');
 const firebase = require('firebase/app');
+const mongoose =require('mongoose')
 const cors=require('cors')
 require('firebase/auth');
 require('dotenv').config()
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
+mongoose.connect(process.env.MONGO_URI).then(()=>console.log('Connected to MongoDB')).catch((error)=>console.error(error))
 
 admin.initializeApp({
   credential: admin.credential.cert(require(process.env.ADMIN)),
@@ -30,7 +32,7 @@ const auth = getAuth();
 
 const verifyToken = async (req, res, next) => {
   const idToken = req.headers.authorization?.split('Bearer ')[1]; 
-
+  // console.log(idToken)
   if (!idToken) {
     return res.status(403).send('Unauthorized');
   }
@@ -38,6 +40,7 @@ const verifyToken = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken;
+    console.log('User authenticated successfully');
     next();
   } catch (error) {
     console.error('Error verifying token:', error);
@@ -65,13 +68,14 @@ app.post('/login', async (req, res) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const token = await user.getIdToken();
-    res.status(200).json('Success');
+    
+    // console.log(token)
+    res.status(200).json({message:'Success',token:token});
   } catch (error) {
     console.error('Error during login:', error);
     res.status(400).json({ message: error.message });
   }
 });
-
 app.get('/protected', verifyToken, (req, res) => {
   return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
 });

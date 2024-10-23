@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Sidebar = ({ login, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const notify = () => toast.success('Logging you out!', {
+  const notify = () => toast.success('You\'reLogged out!', {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -98,7 +98,7 @@ const Sidebar = ({ login, logout }) => {
             {
               logout &&
               <li>
-                <Link to="/" className="text-gray-100 hover:text-red-800" onClick={() => { toggleSidebar(); notify(); }}>
+                <Link to="/" className="text-gray-100 hover:text-red-800" onClick={() => { toggleSidebar(); notify(); localStorage.removeItem('token') }}>
                   Logout<hr/>
                 </Link>
               </li>

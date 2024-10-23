@@ -4,12 +4,14 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import loadingA from '../assets/loading.svg';
 import Spinner from '../assets/load.svg';
-
+import DisplayRecipe from '../Components/DisplayRecipe';
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-  const [wishlist, setWishlist] = useState([]); // State to track the wishlist
+  const [wishlist, setWishlist] = useState([]); 
+  const [Displayrecipe, setDisplayrecipe] = useState(false);
+  const [recipe, setRecipe] = useState({});
 
   useEffect(() => {
     setLoading(true);
@@ -80,11 +82,16 @@ const Recipes = () => {
                 >
                   {isWishlisted ? <FaHeart /> : <FaRegHeart />}
                 </button>
-                <button className="bg-lime-700 text-white px-4 py-2 rounded-lg">
+                <button className="bg-lime-700 text-white px-4 py-2 rounded-lg"
+                onClick={()=>{setDisplayrecipe(true)
+                setRecipe(recipe.recipe)
+                }}
+                >
                   View Recipe
                 </button>
               </div>
             </div>
+          
           );
         })}
 
@@ -94,7 +101,14 @@ const Recipes = () => {
           </div>
         )}
       </div>
+      {
+      Displayrecipe&&
+      <div>
+        <DisplayRecipe recipe={recipe} setDisplayrecipe={()=>setDisplayrecipe()}></DisplayRecipe>
+
+      </div>}
     </div>
+
   );
 };
 

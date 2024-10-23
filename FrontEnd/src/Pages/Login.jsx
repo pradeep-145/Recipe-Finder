@@ -23,11 +23,12 @@ const Login = () => {
 
         try {
             axios.post('http://localhost:3000/login', { email, password }).then(res => {
-                if (res.data === 'Success') {
+                if (res.data.message === 'Success') {
                     console.log('Login Successful');
                     <ToastContainer />                   
                     
                     navigate('/home')
+                    localStorage.setItem('token', res.data.token)
                 }
 
                 else {
