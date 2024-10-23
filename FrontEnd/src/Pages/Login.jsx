@@ -8,7 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
-    const notify = () => toast.success('Wow so easy!', {
+    const notify = () => toast.success('Logging you in!', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -24,10 +24,9 @@ const Login = () => {
         try {
             axios.post('http://localhost:3000/login', { email, password }).then(res => {
                 if (res.data === 'Success') {
-                    console.log('Login Successful')
-                        
+                    console.log('Login Successful');
+                    <ToastContainer />                   
                     
-
                     navigate('/home')
                 }
 
