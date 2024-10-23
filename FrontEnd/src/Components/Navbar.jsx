@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Sidebar = ({ login, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const notify = () => toast.success('You\'reLogged out!', {
+  const notify = () => toast.success('Logging you out!', {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,

@@ -10,6 +10,7 @@ import AboutUs from './Pages/AboutUs';
 import Footer from './Components/Footer';
 import  WishList  from './Pages/WishList';
 import Landing from './Pages/Landing';
+import DisplayRecipe from './Components/DisplayRecipe';
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
             <div>
               <AboutUs/>
             </div>
-            <div className='bottom-0  w-full'>
+            <div className='bottom-0 w-full'>
               <Footer/>
             </div>
           </div>
@@ -79,7 +80,7 @@ function App() {
             <div className='flex h-[80vh] pt-28 bg-lime-100'>
               <Contact />
             </div>
-            <div className='  bottom-0'>
+            <div className='bottom-0'>
               <Footer/>
             </div>
           </div>

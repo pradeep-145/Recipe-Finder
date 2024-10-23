@@ -26,7 +26,6 @@ const Login = () => {
                 if (res.data.message === 'Success') {
                     console.log('Login Successful');
                     <ToastContainer />                   
-                    
                     navigate('/home')
                     localStorage.setItem('token', res.data.token)
                 }
