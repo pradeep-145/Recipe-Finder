@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import Spinner from '../assets/load.svg';
 import DisplayRecipe from '../Components/DisplayRecipe';
+import Lottie from 'react-lottie'; // Import Lottie
+import animationData from '../assets/loadingAnimation.json'; // Import the Lottie JSON
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -28,32 +29,20 @@ const Recipes = () => {
   }, []);
 
   const handleSearch = async (e) => {
-    e.preventDefault()
-      setLoading(true);
+    e.preventDefault();
+    setLoading(true);
     if (search) {
       try {
         const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
         console.log('response:', response.data.meals);
         setRecipes(response.data.meals);
-              setLoading(false);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching meals:', error);
+        setLoading(false);
       }
     }
   };
-
-
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   axios.get(`http://localhost:3000/search`, { params: { search } })
-  //     .then((response) => {
-  //       setRecipes(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error.response.data);
-  //       setLoading(false);
-  //     });
-  // };
 
   const toggleWishlist = (recipe) => {
     const isAlreadyInWishlist = wishlist.includes(recipe);
@@ -63,13 +52,13 @@ const Recipes = () => {
       setWishlist([...wishlist, recipe]);
     }
   };
+
   const getIngredients = (meal) => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
       const ingredient = meal[`strIngredient${i}`];
       const measure = meal[`strMeasure${i}`];
 
-      
       if (ingredient && ingredient.trim() !== '') {
         ingredients.push(`${measure ? measure : ''} ${ingredient}`.trim());
       }
@@ -77,6 +66,14 @@ const Recipes = () => {
     return ingredients;
   };
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData, 
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
   return (
     <div className='flex flex-col flex-1 mb-10'>
@@ -97,49 +94,48 @@ const Recipes = () => {
       </div>
 
       <div className='flex flex-wrap justify-center items-center mt-4'>
-        {recipes.map((recipe) => {
-          const isWishlisted = wishlist.includes(recipe);
-          return (
-            <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
-              <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
-              <h2 className='text-xl font-bold mt-4'>{recipe.strMeal}</h2>
-              <hr className='my-2'/>
-              <div className="flex justify-between items-center my-2">
-                <button 
-                  className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
-                  onClick={() => toggleWishlist(recipe)} 
-                >
-                  {isWishlisted ? <FaHeart /> : <FaRegHeart />}
-                </button>
-                <button className="bg-lime-700 text-white px-4 py-2 rounded-lg"
-                onClick={()=>{setDisplayrecipe(true)
-                  setIngredients(getIngredients(recipe))
-                  setRecipe(recipe)
-
-                }}
-                >
-                  View Recipe
-                </button>
-              </div>
-            </div>
-          
-          );
-        })}
-
-        {loading && (
-          <div className='bg-slate-950 bg-opacity-25 absolute w-[500vh] h-[250vh] flex justify-center items-center'>
-            <img src={Spinner} alt="loading" className="w-30 h-20" />
+        {loading ? (
+          <div className='flex justify-center items-center h-screen'>
+            {/* Lottie Animation */}
+            <Lottie options={defaultOptions} height={400} width={400} />
           </div>
+        ) : (
+          recipes.map((recipe) => {
+            const isWishlisted = wishlist.includes(recipe);
+            return (
+              <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
+                <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
+                <h2 className='text-xl font-bold mt-4'>{recipe.strMeal}</h2>
+                <hr className='my-2'/>
+                <div className="flex justify-between items-center my-2">
+                  <button 
+                    className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
+                    onClick={() => toggleWishlist(recipe)} 
+                  >
+                    {isWishlisted ? <FaHeart /> : <FaRegHeart />}
+                  </button>
+                  <button className="bg-lime-700 text-white px-4 py-2 rounded-lg"
+                    onClick={() => {
+                      setDisplayrecipe(true);
+                      setIngredients(getIngredients(recipe));
+                      setRecipe(recipe);
+                    }}
+                  >
+                    View Recipe
+                  </button>
+                </div>
+              </div>
+            );
+          })
         )}
       </div>
-      {
-      Displayrecipe&&
-      <div>
-        <DisplayRecipe recipe={recipe} setDisplayrecipe={()=>setDisplayrecipe()} ingredients={ingredients}></DisplayRecipe>
-
-      </div>}
+      
+      {Displayrecipe && (
+        <div>
+          <DisplayRecipe recipe={recipe} setDisplayrecipe={setDisplayrecipe} ingredients={ingredients}></DisplayRecipe>
+        </div>
+      )}
     </div>
-
   );
 };
 
