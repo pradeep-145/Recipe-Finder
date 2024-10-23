@@ -69,7 +69,6 @@ app.post('/login', async (req, res) => {
     const user = userCredential.user;
     const token = await user.getIdToken();
     
-    // console.log(token)
     res.status(200).json({message:'Success',token:token});
   } catch (error) {
     console.error('Error during login:', error);
@@ -79,25 +78,7 @@ app.post('/login', async (req, res) => {
 app.get('/protected', verifyToken, (req, res) => {
   return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
 });
-app.get('/search',(req,res)=>{
-  const search=req.query.search;
-  console.log(search)
-  const url=`https://api.edamam.com/search?q=${search}&app_id=${process.env.APP_ID}&app_key=${process.env.API_KEY}&from=0&to=30`
-  fetch(url)
-  .then((response)=>{
-    response.json()
-    .then(data=>{
-      res.json(data.hits)
-    })
-  })
-  .catch((error)=>{
-    console.error(error)
-  })
-})
-app.get('/', (req, res) => {
-  res.send('Public route - no authentication needed');
-});
-
+  
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
