@@ -6,30 +6,6 @@ import loadingA from '../assets/loading.svg';
 import Spinner from '../assets/load.svg';
 
 const Recipes = () => {
-<<<<<<< HEAD
-  const [recipes,setRecipes] =useState([])
-  const [search,setSearch] =useState('')
-  const [loading,setLoading] =useState(false)
-  const params={
-    search:search
-  }
-  useEffect(()=>{
-    var i=true
-    setLoading(true)
-    if(i){
-      axios.get(`http://localhost:3000/search`,{search:'veg'}).then((response)=>{
-        console.log(response.data)
-        setRecipes(response.data)
-        setTimeout(() => {
-          setLoading(false)
-        }, 1000);
-      }).catch((error)=>{ 
-        console.error(error.response.data)
-      }
-    )
-  }
-  },[])
-=======
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,7 +24,6 @@ const Recipes = () => {
       });
   }, []);
 
->>>>>>> 849279bd2c50b20fd00c9cc2f948ce033f3515b1
   const handleSearch = (e) => {
     e.preventDefault();
     setLoading(true);
