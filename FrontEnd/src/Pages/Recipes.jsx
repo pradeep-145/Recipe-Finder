@@ -98,7 +98,7 @@ const Recipes = () => {
 
       <div className='flex flex-wrap justify-center items-center mt-4'>
         {recipes.map((recipe) => {
-          const isWishlisted = wishlist.includes(recipe.recipe);
+          const isWishlisted = wishlist.includes(recipe);
           return (
             <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
               <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
