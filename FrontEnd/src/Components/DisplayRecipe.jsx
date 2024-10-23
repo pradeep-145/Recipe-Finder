@@ -7,7 +7,7 @@ const DisplayRecipe = ({recipe,setDisplayrecipe, ingredients}) => {
 // #4C7766
 
 return (
-    <div className="bg-[#EBE6E0] text-xl w-3/4 h-3/4 absolute top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-scroll rounded-2xl">
+    <div className="bg-[#EBE6E0] text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-scroll rounded-2xl">
           <h1 className="text-5xl font-bold text-center text-[#4C7766] font-mono">{recipe.strMeal}</h1>
           <button onClick={()=>setDisplayrecipe(false)} className="fixed top-2 right-1 px-2 mr-1 rounded-full py-1 text-4xl text-[#4C7766]"><IoCloseCircleSharp /></button>
           <img src={recipe.strMealThumb} alt={recipe.label} className="rounded-lg w-full mt-10 h-64 object-contain" />
