@@ -53,31 +53,34 @@ const verifyToken = async (req, res, next) => {
 };
 app.post('/translate', async(req, res) => {
   const { text, to } = req.body;
-  try{
 
-    const response = await axios.post('https://api.cognitive.microsofttranslator.com/translate?api-version=3.0',
+
+  console.log(text)
+//   try{
+
+//     const response = await axios.post('https://api.cognitive.microsofttranslator.com/translate?api-version=3.0',
       
-      [
-        {'Text': text}
-      ],
-      {
-        headers: {
-          'Ocp-Apim-Subscription-Key':process.env.SUBSCRIPTION_KEY,
-          'Ocp-Apim-Subscription-Region':'southeastasia',
-          'Content-Type':'application/json'
-        },
-        params: {
-          'to': to
-        }
+//       [
+//         {'Text': text}
+//       ],
+//       {
+//         headers: {
+//           'Ocp-Apim-Subscription-Key':process.env.SUBSCRIPTION_KEY,
+//           'Ocp-Apim-Subscription-Region':'southeastasia',
+//           'Content-Type':'application/json'
+//         },
+//         params: {
+//           'to': to
+//         }
         
-      }
-    )
-  res.json(response.data[0].translations[0].text)
-}
-catch(error){
-  console.error('Error during translation:', error);
-  res.status(400).json({ message: error.message });
-}
+//       }
+//     )
+//   res.json(response.data[0].translations[0].text)
+// }
+// catch(error){
+//   console.error('Error during translation:', error);
+//   res.status(400).json({ message: error.message });
+// }
   
 });
 // Register route
