@@ -49,7 +49,20 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).send('Unauthorized');
   }
 };
+app.post('/translate', (req, res) => {
+  const { text, targetLanguage } = req.body;
 
+  const pythonProcess = spawn('python', ['translator.py', text, targetLanguage]);
+
+  pythonProcess.stdout.on('data', (data) => {
+      res.json({ translatedText: data.toString().trim() });
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+      console.error(`Error: ${data}`);
+      res.status(500).json({ error: data.toString().trim() });
+  });
+});
 // Register route
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
