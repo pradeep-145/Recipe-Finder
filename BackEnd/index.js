@@ -5,6 +5,8 @@ const firebase = require('firebase/app');
 const mongoose = require('mongoose');
 const Wishlist = require('./models/WishlistModel');
 const cors = require('cors');
+const {translate}=require('libretranslate')
+const axios=require('axios')
 require('firebase/auth');
 require('dotenv').config();
 const app = express();
@@ -49,19 +51,34 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).send('Unauthorized');
   }
 };
-app.post('/translate', (req, res) => {
-  const { text, targetLanguage } = req.body;
+app.post('/translate', async(req, res) => {
+  const { text, to } = req.body;
+  try{
 
-  const pythonProcess = spawn('python', ['translator.py', text, targetLanguage]);
-
-  pythonProcess.stdout.on('data', (data) => {
-      res.json({ translatedText: data.toString().trim() });
-  });
-
-  pythonProcess.stderr.on('data', (data) => {
-      console.error(`Error: ${data}`);
-      res.status(500).json({ error: data.toString().trim() });
-  });
+    const response = await axios.post('https://api.cognitive.microsofttranslator.com/translate?api-version=3.0',
+      
+      [
+        {'Text': text}
+      ],
+      {
+        headers: {
+          'Ocp-Apim-Subscription-Key':process.env.SUBSCRIPTION_KEY,
+          'Ocp-Apim-Subscription-Region':'southeastasia',
+          'Content-Type':'application/json'
+        },
+        params: {
+          'to': to
+        }
+        
+      }
+    )
+  res.json(response.data[0].translations[0].text)
+}
+catch(error){
+  console.error('Error during translation:', error);
+  res.status(400).json({ message: error.message });
+}
+  
 });
 // Register route
 app.post('/register', async (req, res) => {
