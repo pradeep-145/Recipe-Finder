@@ -32,7 +32,7 @@ const WishList = () => {
   };
 
   return (
-    <div className='flex flex-col flex-1 items-center justify-center'>
+    <div className='flex flex-col flex-1 items-center'>
       <h1 className="text-4xl font-bold text-[#4C7766]">Your Wishlist</h1>
       <div className='flex flex-wrap justify-center items-center mt-4 '>
         
