@@ -32,15 +32,10 @@ const WishList = () => {
   };
 
   return (
-<<<<<<< HEAD
     <div className='flex flex-col flex-1 items-center justify-center'>
       <h1 className="text-4xl font-bold text-[#4C7766]">Your Wishlist</h1>
       <div className='flex flex-wrap justify-center items-center mt-4 '>
-        {wishlist.length>0 ? (
-=======
-    <div className='flex flex-col items-center '>
-      <h1 className="text-4xl font-bold">Your Wishlist</h1>
-      <div className='flex flex-wrap justify-center items-center mt-4'>
+        
         { loading?(
           <div className='flex justify-center items-center w-screen h-screen'>
            
@@ -49,7 +44,6 @@ const WishList = () => {
         ):
         wishlist.length > 0 ?
         (
->>>>>>> 2ddca3041e4a2fa4f0ac26a8d139749f453a6408
           wishlist.map((recipe, index) => (
             <div key={index} className='border border-gray-300 h-[480px] rounded-lg p-4 m-2 w-96 bg-[#4C7766]'>
               <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
