@@ -25,7 +25,7 @@ const Sidebar = ({ login, logout }) => {
   return (
 
     <div className="relative">
-      <div className="fixed top-0 left-0 w-full flex justify-between items-center h-16 px-4 py-2 bg-black bg-opacity-60 backdrop-blur-md shadow-lg z-50">
+      <div className="fixed top-0 left-0 w-full flex justify-between items-center h-16 px-4 py-2 bg-[#4C7766] bg-opacity-60  backdrop-blur-md shadow-lg z-50">
         
         <Link to="/home">
           <img src={headerLogo} alt="logo" width={50} height={29} className="m-2" />
@@ -52,7 +52,7 @@ const Sidebar = ({ login, logout }) => {
 
     
       <aside
-        className={`fixed right-0 top-0 h-full bg-black bg-opacity-60  shadow-lg transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed right-0 top-0 h-full bg-[#4C7766] bg-opacity-80  shadow-lg transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
           } duration-300 z-40`}
       >
         <div className="p-4 flex justify-between items-center">

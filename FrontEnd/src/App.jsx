@@ -90,10 +90,10 @@ function App() {
             <div>
               <Navbar logout={true}  />
             </div>
-            <div className='flex h-[80vh] pt-28 overflow-y-scroll bg-[#EBE6E0]'>
+            <div className='flex h-full pt-28 overflow-y-scroll bg-[#EBE6E0]'>
               <WishList />
             </div>
-            <div className='  bottom-0'>
+            <div className='  w-full m-0 bottom-0'>
               <Footer/>
             </div>
           </div>
