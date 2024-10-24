@@ -14,7 +14,6 @@ const WishList = () => {
   const token=localStorage.getItem('token');
   useEffect(() => {
     setLoading(true);
-    // Fetch wishlist from backend
     axios.get('http://localhost:3000/wishlist',{
       headers:{
         'Authorization':`Bearer ${token}`

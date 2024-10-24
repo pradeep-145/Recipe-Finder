@@ -1,4 +1,3 @@
-# translator.py
 import sys
 from googletrans import Translator
 
@@ -13,4 +12,6 @@ def translate_text(text, target_language):
 if __name__ == "__main__":
     text_to_translate = sys.argv[1]
     target_language = sys.argv[2]
-    print(translate_text(text_to_translate, target_language))
+
+    result = translate_text(text_to_translate, target_language)
+    print(result)
