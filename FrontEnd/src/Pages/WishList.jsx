@@ -2,10 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loadingAnimation.json'; 
+import DisplayRecipe from '../Components/DisplayRecipe';
+
 
 const WishList = () => {
   const [wishlist,setWishlist]=useState([]);
   const [loading,setLoading]=useState(false);
+  const [Displayrecipe, setDisplayrecipe] = useState(false);
+  const [recipe, setRecipe] = useState({});
+  const [ingredients, setIngredients] = useState([]);
   const token=localStorage.getItem('token');
   useEffect(() => {
     setLoading(true);
@@ -30,11 +35,23 @@ const WishList = () => {
       preserveAspectRatio: "xMidYMid slice"
     }
   };
+  const getIngredients = (meal) => {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = meal[`strIngredient${i}`];
+      const measure = meal[`strMeasure${i}`];
+
+      if (ingredient && ingredient.trim() !== '') {
+        ingredients.push(`${measure ? measure : ''} ${ingredient}`.trim());
+      }
+    }
+    return ingredients;
+  };
 
   return (
     <div className='flex flex-col flex-1 items-center'>
       <h1 className="text-4xl font-bold text-[#4C7766]">Your Wishlist</h1>
-      <div className='flex flex-wrap justify-center items-center mt-4 '>
+      <div className='flex flex-wrap justify-center items-center mt-8 '>
         
         { loading?(
           <div className='flex justify-center items-center w-screen h-screen'>
@@ -49,7 +66,11 @@ const WishList = () => {
               <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
               <h2 className='text-xl font-bold mt-4 text-[#EBE6E0]'>{recipe.strMeal}</h2>
               <div className='flex gap-3 justify-between'>
-              <button className="bg-[#EBE6E0] text-[#4C7766] px-4 py-2 mt-2 font-semibold rounded-lg">
+              <button className="bg-[#EBE6E0] text-[#4C7766] px-4 py-2 mt-2 font-semibold rounded-lg" onClick={() => {
+                      setDisplayrecipe(true);
+                      setIngredients(getIngredients(recipe));
+                      setRecipe(recipe);
+                    }}>
                 View Recipe
               </button>
               <button className="bg-[#EBE6E0] text-[#4C7766] px-4 py-2 mt-2  font-semibold rounded-lg">
