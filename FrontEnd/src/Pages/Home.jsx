@@ -8,21 +8,32 @@ const Home = () => {
   useEffect(() => { 
     const token=localStorage.getItem('token')
     if(!token){
-      navigate('/login')
     }
-  axios.get('http://localhost:3000/protected',{
-    headers:{
-      'Authorization':`Bearer ${token}`
-    }
+    axios.get('http://localhost:3000/protected',{
+      headers:{
+        'Authorization':`Bearer ${token}`
+      }
   })
   .then(res=>{
-
-   console.log(res.data) 
+    
     setAuthorized(true)
   }
   )
-  .catch(err=>console.log(err.response.data))
+  .catch(err=>{
+    if(err.response.data=='Unauthorized'){
+      alert('You are not authorized to view this page')
+      setTimeout(() => {
+        navigate('/login')
+        
+      }, 1000);
+      
+    }
+    
+    console.log(err.response.data)
   }
+  )
+}
+
   , []);
   
 

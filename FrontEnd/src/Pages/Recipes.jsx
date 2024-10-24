@@ -55,10 +55,10 @@ const Recipes = () => {
       } else {
         const response = await axios.post(
           'http://localhost:3000/wishlist', 
-          { recipe: recipe },  // Send recipe data as the body
+          { recipe: recipe }, 
           {
             headers: {
-              'Authorization': `Bearer ${token}`  // Send headers separately
+              'Authorization': `Bearer ${token}`  
             }
           }
         );
@@ -133,8 +133,8 @@ const Recipes = () => {
           </div>
         ) : (
           recipes.map((recipe) => {
-            const isWishlisted =wishlist.includes(recipe.idMeal);
             
+            const isWishlisted =wishlist.includes(recipe.idMeal);
             return (
               <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
