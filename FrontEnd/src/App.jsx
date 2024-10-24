@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import backgroundImage from './assets/background.jpg';
+import kitchen from './assets/kitchen.jpg';
 import Footer from './Components/Footer';
 import Navbar from './Components/Navbar';
 import AboutUs from './Pages/AboutUs';
@@ -76,7 +77,7 @@ function App() {
             <div>
               <Navbar logout={true}  />
             </div>
-            <div className='flex h-[80vh] pt-28 bg-lime-100'>
+            <div style={{ backgroundImage: `url(${kitchen})` }} className="flex py-10 bg-contain  min-h-screen ">
               <Contact />
             </div>
             <div className='bottom-0'>
