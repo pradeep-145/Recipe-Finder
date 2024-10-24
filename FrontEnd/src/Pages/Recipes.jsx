@@ -29,7 +29,6 @@ const Recipes = () => {
         setLoading(false);
       });
 
-    // Fetch wishlist from backend
     axios.get('http://localhost:3000/wishlist',{
       headers:{
         'Authorization':`Bearer ${token}`
@@ -40,23 +39,36 @@ const Recipes = () => {
 
   }, [search]);
   const handleWishlist = async (recipe, isWishlisted) => {
+    console.log(wishlist);
+    console.log(isWishlisted);
     try {
       if (isWishlisted) {
-        // Remove from wishlist
-        const response = await axios.delete(`http://localhost:3000/wishlist/${recipe.idMeal}`,{headers:{
-          'Authorization':`Bearer ${token}`
-        }});
-        setWishlist(response.data); 
+        const response = await axios.delete(
+          `http://localhost:3000/wishlist/${recipe.idMeal}`, 
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+        setWishlist((response.data)); 
       } else {
-        const response = await axios.post('http://localhost:3000/wishlist', {recipe:recipe,headers:{
-          'Authorization':`Bearer ${token}`
-        } });
-        setWishlist(response.data); 
+        const response = await axios.post(
+          'http://localhost:3000/wishlist', 
+          { recipe: recipe }, 
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`  
+            }
+          }
+        );
+        
       }
     } catch (error) {
       console.error(error.response.data);
     }
   };
+  
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -94,7 +106,7 @@ const Recipes = () => {
       preserveAspectRatio: "xMidYMid slice"
     }
   };
-
+  
   return (
     <div className='flex flex-col flex-1 mb-10'>
       <div className='flex flex-col justify-center items-center'>
@@ -121,7 +133,8 @@ const Recipes = () => {
           </div>
         ) : (
           recipes.map((recipe) => {
-            const isWishlisted = wishlist.includes(recipe.idMeal); // Check if recipe is in wishlist
+            
+            const isWishlisted =wishlist.includes(recipe.idMeal);
             return (
               <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
@@ -131,7 +144,7 @@ const Recipes = () => {
                   <button 
                     className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
                     onClick={() => handleWishlist(recipe, isWishlisted)} 
-                  >
+                    >
                     {isWishlisted ? <FaHeart /> : <FaRegHeart />}
                   </button>
                   <button className="bg-lime-700 text-white px-4 py-2 rounded-lg"

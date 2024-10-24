@@ -2,17 +2,19 @@ const express = require('express');
 const admin = require('firebase-admin');
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = require('firebase/auth');
 const firebase = require('firebase/app');
-const mongoose =require('mongoose')
-const wish=require('./models/WishlistModel')
-const cors=require('cors')
+const mongoose = require('mongoose');
+const Wishlist = require('./models/WishlistModel');
+const cors = require('cors');
 require('firebase/auth');
-require('dotenv').config()
+require('dotenv').config();
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI).then(()=>console.log('Connected to MongoDB')).catch((error)=>console.error(error))
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.error(error));
 
 admin.initializeApp({
   credential: admin.credential.cert(require(process.env.ADMIN)),
@@ -20,20 +22,20 @@ admin.initializeApp({
 });
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAOZOvZsxRv-TsZJlPafw-SbBysopG_XdA",
-    authDomain: "recipefinder-727dd.firebaseapp.com",
-    projectId: "recipefinder-727dd",
-    storageBucket: "recipefinder-727dd.appspot.com",
-    messagingSenderId: "737290737262",
-    appId: "1:737290737262:web:4935527c7b2920e344b87f",
-    measurementId: "G-9GFQKE7DS0"
-  };
+  apiKey: "AIzaSyAOZOvZsxRv-TsZJlPafw-SbBysopG_XdA",
+  authDomain: "recipefinder-727dd.firebaseapp.com",
+  projectId: "recipefinder-727dd",
+  storageBucket: "recipefinder-727dd.appspot.com",
+  messagingSenderId: "737290737262",
+  appId: "1:737290737262:web:4935527c7b2920e344b87f",
+  measurementId: "G-9GFQKE7DS0"
+};
 firebase.initializeApp(firebaseConfig);
 const auth = getAuth();
 
+// Middleware to verify token
 const verifyToken = async (req, res, next) => {
-  const idToken = req.headers.authorization?.split('Bearer ')[1]; 
-  console.log(idToken)
+  const idToken = req.headers.authorization?.split('Bearer ')[1];
   if (!idToken) {
     return res.status(403).send('Unauthorized');
   }
@@ -41,8 +43,6 @@ const verifyToken = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken;
-    console.log(decodedToken.email)
-    console.log('User authenticated successfully');
     next();
   } catch (error) {
     console.error('Error verifying token:', error);
@@ -50,13 +50,13 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
+// Register route
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const token = await user.getIdToken();
-    console.log('User registered successfully');
     res.status(201).json({ message: 'User registered successfully', token });
   } catch (error) {
     console.error('Error during registration:', error);
@@ -64,39 +64,98 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// Login route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const token = await user.getIdToken();
-    
-    res.status(200).json({message:'Success',token:token});
+    res.status(200).json({ message: 'Success', token });
   } catch (error) {
     console.error('Error during login:', error);
     res.status(400).json({ message: error.message });
   }
 });
-app.get('/protected', verifyToken, (req, res) => {
-  
-  return res.send(`Hello, ${req.user.name || req.user.email}! You are authenticated.`);
-});
-app.post('/wishlist',verifyToken,(req,res)=>{
-  console.log('hello')
-  wish.create({user:req.user.email,recipe:req.body.recipe}).then(()=>console.log('Wishlist updated')).catch((error)=>console.error(error))
-  res.send('Wishlist updated')
-}
-)
-app.delete('/wishlist/:recipeId',verifyToken,(req,res)=>{
-  wish.deleteOne({user:req.user.email,recipe  :req.params.recipeId}).then(()=>console.log('Wishlist updated')).catch((error)=>console.error(error))
-  res.send('Wishlist updated')
-}
-)
 
-app.get('/wishlist',verifyToken,(req,res)=>{
+// Protected route example
+app.get('/protected', verifyToken, (req, res) => {
+  return res.send(`Hello, ${req.user.email}! You are authenticated.`);
+});
+
+// POST: Add recipe to wishlist
+app.post('/wishlist', verifyToken, async (req, res) => {
+  const { recipe } = req.body;
   
-  wish.find({user:req.user.email}).then((data)=>res.send(data)).catch((error)=>console.error(error))
-})
+  try {
+    // Check if the recipe already exists in the user's wishlist
+    const existingWishlist = await Wishlist.findOne({ user: req.user.email });
+    
+    if (!existingWishlist) {
+      // Create a new wishlist for the user if it doesn't exist
+      const newWishlist = new Wishlist({
+        user: req.user.email,
+        recipes: [recipe]
+      });
+      await newWishlist.save();
+      return res.status(201).json(newWishlist);
+    }
+
+    // Check if the recipe already exists in the user's wishlist
+    const isAlreadyInWishlist = existingWishlist.recipes.some(
+      (r) => r.idMeal === recipe.idMeal
+    );
+    
+    if (isAlreadyInWishlist) {
+      return res.status(409).json({ message: 'Recipe is already in wishlist' });
+    }
+
+    existingWishlist.recipes.push(recipe);
+    await existingWishlist.save();
+    return res.status(200).json(existingWishlist);
+  } catch (error) {
+    console.error('Error adding to wishlist:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// DELETE: Remove recipe from wishlist by idMeal
+app.delete('/wishlist/:idMeal', verifyToken, async (req, res) => {
+  const { idMeal } = req.params;
+  
+  try {
+    const updatedWishlist = await Wishlist.findOneAndUpdate(
+      { user: req.user.email },
+      { $pull: { recipes: { idMeal: idMeal } } },
+      { new: true }
+    );
+
+    if (!updatedWishlist) {
+      return res.status(404).json({ message: 'Wishlist not found' });
+    }
+
+    return res.status(200).json(updatedWishlist);
+  } catch (error) {
+    console.error('Error removing from wishlist:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// GET: Retrieve wishlist for the authenticated user
+app.get('/wishlist', verifyToken, async (req, res) => {
+  try {
+    const userWishlist = await Wishlist.findOne({ user: req.user.email });
+    if (!userWishlist) {
+      return res.status(404).json({ message: 'No wishlist found' });
+    }
+
+    return res.status(200).json(userWishlist.recipes);
+  } catch (error) {
+    console.error('Error fetching wishlist:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

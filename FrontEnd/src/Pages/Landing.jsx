@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Landing = () => {
+  const token=localStorage.getItem('token')
+  const navigate=useNavigate()
+  useEffect(() => {
+
+  if(token){
+    navigate('/home')
+  }
+  }
+  , []);
+
   return (
     <>
   <div className='py-8 flex w-full h-screen pr-32 justify-center items-center'>
