@@ -132,7 +132,7 @@ const Recipes = () => {
             <Lottie options={defaultOptions} height={400} width={400} />
           </div>
         ) : (
-          recipes.map((recipe) => {
+          recipes?recipes.map((recipe) => {
             
             const isWishlisted =wishlist.includes(recipe.idMeal);
             return (
@@ -159,7 +159,10 @@ const Recipes = () => {
                 </div>
               </div>
             );
-          })
+          }):
+          <div>
+            <h1 className='text-2xl text-gray-700'>No recipes found</h1>
+          </div>
         )}
       </div>
       
