@@ -63,7 +63,7 @@ function App() {
             <div>
               <Navbar logout={true}/>
             </div>
-            <div className='flex pt-28 bg-lime-100 h-full px-4'>
+            <div className='flex pt-28 bg-[#EBE6E0] h-full px-4'>
               <Recipes />
             </div>
             <div className='bottom-0  w-full m-0'>
@@ -89,7 +89,7 @@ function App() {
             <div>
               <Navbar logout={true}  />
             </div>
-            <div className='flex h-auto pt-28 bg-lime-100'>
+            <div className='flex h-auto pt-28 bg-[#EBE6E0]'>
               <WishList />
             </div>
             <div className='  bottom-0'>
