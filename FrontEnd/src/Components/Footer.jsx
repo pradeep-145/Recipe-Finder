@@ -6,7 +6,7 @@ import copyrightSign from '../assets/copyright.svg';
 
 const Footer = () => {
   return (
-    <footer className="max-container px-2  bg-slate-200">
+    <footer className="max-container px-2 bg-[#bbdfd0]">
       <div className="flex justify-between items-start gap-20 ml-3 flex-wrap max-lg:flex-col ">
         <div className="flex flex-col items-start mt-2">
           <a href="/">
