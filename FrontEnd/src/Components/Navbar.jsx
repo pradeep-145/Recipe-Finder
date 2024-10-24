@@ -37,7 +37,7 @@ const Sidebar = ({ login, logout }) => {
           </button>
         )}
         <button onClick={toggleSidebar} className="text-white hover:text-gray-400 focus:outline-none m-2">
-          {/* Burger Menu Icon */}
+          
           <svg
             className="w-8 h-8"
             fill="none"
@@ -50,14 +50,14 @@ const Sidebar = ({ login, logout }) => {
         </button>
       </div>
 
-      {/* Sidebar (No Blur) */}
+    
       <aside
         className={`fixed right-0 top-0 h-full bg-black bg-opacity-60  shadow-lg transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
           } duration-300 z-40`}
       >
         <div className="p-4 flex justify-between items-center">
           <button onClick={toggleSidebar} className="text-black ml-10 mt-6 focus:outline-none">
-            {/* Close Button Icon */}
+            
             <svg
               className="w-6 h-6"
               fill="none"
