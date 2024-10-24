@@ -109,16 +109,16 @@ const Recipes = () => {
   return (
     <div className='flex flex-col flex-1 mb-10'>
       <div className='flex flex-col justify-center items-center'>
-        <h1 className="text-4xl text-gray-700 font-bold"> Our Recipes</h1>
+        <h1 className="text-4xl font-bold text-[#4C7766]"> Our Recipes</h1>
         <p className="mt-2 text-gray-700 text-lg">Discover new recipes and try them out!</p>
-        <form onSubmit={handleSearch} className='flex justify-end items-center w-96 mt-5 border border-gray-400 rounded-full'>
+        <form onSubmit={handleSearch} className='flex justify-end items-center w-96 mt-5 border border-[#4C7766]rounded-full'>
           <input
             type="text"
             placeholder=" Search"
-            className="rounded-full p-2 w-full focus:ring-gray-400"
+            className="rounded-full p-2 w-full focus:ring-2 focus:ring-[#4C7766] focus:outline-none"
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button type="submit" className="absolute bg-black text-white px-2 mr-1 rounded-full py-1">
+          <button type="submit" className="absolute bg-[#4C7766] text-white px-2 mr-1 rounded-full py-1">
             <HiOutlineSearch className='h-6' />
           </button>
         </form>
@@ -135,18 +135,19 @@ const Recipes = () => {
             
             const isWishlisted =wishlist.includes(recipe.idMeal);         
             return (
-              <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
+              <div key={recipe.idMeal} className='border border-gray-300 h-[460px] rounded-lg p-4 m-5 w-96 bg-[#4C7766] shadow-lg shadow-[#5ea78a] hover:scale-105 duration-300 '>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
-                <h2 className='text-xl font-bold mt-4'>{recipe.strMeal}</h2>
-                <hr className='my-2'/>
-                <div className="flex justify-between items-center mt-6">
+                <div className='flex justify-between mt-2'>
+                <h2 className='text-3xl font-bold mt-4 text-[#EBE6E0]'>{recipe.strMeal}</h2>
+                
+                <div className="flex gap-3 justify-end mt-3">
                   <button 
-                    className={`p-2 rounded-full text-2xl ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
+                    className={`p-2 rounded-full text-3xl ${isWishlisted ? 'text-red-500' : 'text-white'}`}
                     onClick={() => handleWishlist(recipe, isWishlisted)} 
                     >
                     {isWishlisted ? <FaHeart /> : <FaRegHeart />}
                   </button>
-                  <button className="bg-lime-700 text-white px-4 py-2 rounded-lg"
+                  <button className="bg-[#EBE6E0] text-[#4C7766] px-4 font-semibold rounded-lg"
                     onClick={() => {
                       setDisplayrecipe(true);
                       setIngredients(getIngredients(recipe));
@@ -155,6 +156,7 @@ const Recipes = () => {
                   >
                     View Recipe
                   </button>
+                </div>
                 </div>
               </div>
             );

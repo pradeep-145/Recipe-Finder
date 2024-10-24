@@ -62,7 +62,7 @@ const WishList = () => {
         wishlist.length > 0 ?
         (
           wishlist.map((recipe, index) => (
-            <div key={index} className='border border-gray-300 h-[480px] rounded-lg p-4 m-2 w-96 bg-[#4C7766]'>
+            <div key={index} className='border border-gray-300 h-[480px] rounded-lg p-4 m-5 w-96 bg-[#4C7766] shadow-lg shadow-[#5ea78a] hover:scale-105 duration-300 '>
               <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
               <h2 className='text-xl font-bold mt-4 text-[#EBE6E0]'>{recipe.strMeal}</h2>
               <div className='flex gap-3 justify-between'>
@@ -80,9 +80,14 @@ const WishList = () => {
             </div>
           ))
         ) : (
-          <p className='text-lg'>Your wishlist is empty.</p>
+          <p className='text-lg text-[#4C7766]'>Your wishlist is empty.</p>
         )}
       </div>
+      {Displayrecipe && (
+        <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50'>
+          <DisplayRecipe recipe={recipe} setDisplayrecipe={setDisplayrecipe} ingredients={ingredients}></DisplayRecipe>
+        </div>
+      )}
     </div>
   );
 };

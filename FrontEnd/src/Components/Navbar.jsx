@@ -72,25 +72,25 @@ const Sidebar = ({ login, logout }) => {
         <nav className="mt-4">
           <ul className="flex flex-col px-4 gap-4 font-bold text-xl">
             <li>
-              <Link to="/home" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/home" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
                 Home<hr/>
               </Link>
             </li>
             <li>
-              <Link to="/recipes" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/recipes" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
                 Recipes<hr/>
               </Link>
             </li>
             {
               logout &&
             <li>
-              <Link to="/wishlist" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/wishlist" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
                 Wishlist<hr/>
               </Link>
             </li>
             }
             <li>
-              <Link to="/contact" className="text-gray-100 hover:text-red-800" onClick={toggleSidebar}>
+              <Link to="/contact" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
                 Contact<hr/>
               </Link>
             </li>
@@ -98,7 +98,7 @@ const Sidebar = ({ login, logout }) => {
             {
               logout &&
               <li>
-                <Link to="/" className="text-gray-100 hover:text-red-800" onClick={() => { toggleSidebar(); notify(); localStorage.removeItem('token') }}>
+                <Link to="/" className="text-gray-100 hover:text-[#7fd8b5]" onClick={() => { toggleSidebar(); notify(); localStorage.removeItem('token') }}>
                   Logout<hr/>
                 </Link>
               </li>
