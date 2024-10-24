@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { HiOutlineSearch } from "react-icons/hi";
+import React, { useEffect, useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import DisplayRecipe from '../Components/DisplayRecipe';
+import { HiOutlineSearch } from "react-icons/hi";
 import Lottie from 'react-lottie';
-import animationData from '../assets/loadingAnimation.json'; 
+import animationData from '../assets/loadingAnimation.json';
+import DisplayRecipe from '../Components/DisplayRecipe';
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-  const [wishlist, setWishlist] = useState([]); // Keep wishlist as an array of recipe IDs
+  const [wishlist, setWishlist] = useState([]); 
   const [Displayrecipe, setDisplayrecipe] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
@@ -18,7 +18,6 @@ const Recipes = () => {
   
   useEffect(() => {
     setLoading(true);
-    // Fetch recipes based on search term
     axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
       .then((response) => {
         setRecipes(response.data.meals);
@@ -34,7 +33,7 @@ const Recipes = () => {
         'Authorization':`Bearer ${token}`
       }
     }).then(response => {
-      setWishlist(response.data); // Set wishlist as array of recipe IDs
+      setWishlist(response.data); 
     }).catch(error => console.error(error.response.data));
 
   }, [search]);
@@ -132,9 +131,9 @@ const Recipes = () => {
             <Lottie options={defaultOptions} height={400} width={400} />
           </div>
         ) : (
-          recipes.map((recipe) => {
+          recipes?recipes.map((recipe) => {
             
-            const isWishlisted =wishlist.includes(recipe.idMeal);
+            const isWishlisted =wishlist.includes(recipe.idMeal);         
             return (
               <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 h-[450px] rounded-lg p-4 m-2 w-80'>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
@@ -159,7 +158,10 @@ const Recipes = () => {
                 </div>
               </div>
             );
-          })
+          }):
+          <div>
+            <h1 className='text-2xl text-gray-700'>No recipes found</h1>
+          </div>
         )}
       </div>
       

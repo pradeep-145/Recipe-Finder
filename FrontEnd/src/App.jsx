@@ -89,7 +89,11 @@ function App() {
             <div>
               <Navbar logout={true}  />
             </div>
+<<<<<<< HEAD
             <div className='flex h-auto pt-28 bg-[#EBE6E0]'>
+=======
+            <div className='flex h-[80vh] pt-28 overflow-y-scroll bg-lime-100'>
+>>>>>>> 2ddca3041e4a2fa4f0ac26a8d139749f453a6408
               <WishList />
             </div>
             <div className='  bottom-0'>

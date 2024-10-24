@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 admin.initializeApp({
   credential: admin.credential.cert(require(process.env.ADMIN)),
   databaseURL: process.env.FIREBASE_DATABASE_URL
-});
+}); 
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOZOvZsxRv-TsZJlPafw-SbBysopG_XdA",

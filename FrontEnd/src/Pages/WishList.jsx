@@ -1,28 +1,55 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import Lottie from 'react-lottie';
+import animationData from '../assets/loadingAnimation.json'; 
+
 const WishList = () => {
   const [wishlist,setWishlist]=useState([]);
+  const [loading,setLoading]=useState(false);
   const token=localStorage.getItem('token');
   useEffect(() => {
+    setLoading(true);
     // Fetch wishlist from backend
     axios.get('http://localhost:3000/wishlist',{
       headers:{
         'Authorization':`Bearer ${token}`
       }
     }).then(response => {
+      setLoading(false);
       console.log(response.data);
       setWishlist(response.data); 
     }
     ).catch(error => console.error(error.response.data));
   }
   , []);
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData, 
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
   return (
+<<<<<<< HEAD
     <div className='flex flex-col flex-1 items-center justify-center'>
       <h1 className="text-4xl font-bold text-[#4C7766]">Your Wishlist</h1>
       <div className='flex flex-wrap justify-center items-center mt-4 '>
         {wishlist.length>0 ? (
+=======
+    <div className='flex flex-col items-center '>
+      <h1 className="text-4xl font-bold">Your Wishlist</h1>
+      <div className='flex flex-wrap justify-center items-center mt-4'>
+        { loading?(
+          <div className='flex justify-center items-center w-screen h-screen'>
+           
+          <Lottie options={defaultOptions} height={400} width={400} />
+        </div>
+        ):
+        wishlist.length > 0 ?
+        (
+>>>>>>> 2ddca3041e4a2fa4f0ac26a8d139749f453a6408
           wishlist.map((recipe, index) => (
             <div key={index} className='border border-gray-300 h-[480px] rounded-lg p-4 m-2 w-96 bg-[#4C7766]'>
               <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
