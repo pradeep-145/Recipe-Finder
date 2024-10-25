@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
-import { ToastContainer,Bounce, toast } from 'react-toastify';
+import { ToastContainer,Bounce,Flip, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const notify = () => toast.success('Logging you out!', {
-    position: "top-right",
-    autoClose: 3000,
+    position: "top-center",
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
-    transition: Bounce,
-    });
+    theme: "dark",
+    transition: Flip,
+  });
     const token=localStorage.getItem('token');
     const [loggedin,setLoggedin]=useState(false);
 

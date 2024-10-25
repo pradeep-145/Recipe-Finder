@@ -5,6 +5,8 @@ import { HiOutlineSearch } from "react-icons/hi";
 import Lottie from 'react-lottie';
 import animationData from '../assets/loadingAnimation.json';
 import DisplayRecipe from '../Components/DisplayRecipe';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -14,7 +16,7 @@ const Recipes = () => {
   const [Displayrecipe, setDisplayrecipe] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     setLoading(true);
@@ -37,10 +39,9 @@ const Recipes = () => {
     }).catch(error => console.error(error.response.data));
 
   }, [search]);
+
   const handleWishlist = async (recipe) => {
-
     try {
-
       const response = await axios.post(
         'http://localhost:3000/wishlist',
         { recipe: recipe },
@@ -49,18 +50,30 @@ const Recipes = () => {
             'Authorization': `Bearer ${token}`
           }
         }
-      )
-
+      );
+      toast.success('Recipe added to wishlist!', { // Success notification
+        position: "top-right",
+        autoClose: 3000,
+        style: { backgroundColor: 'black', color: '#EBE6E0' }
+      });
 
     } catch (error) {
-      if (error.response.data.message == "Recipe is already in wishlist") {
-        alert('Recipe is already in wishlist')
-      }
-      else if(error.response.data == "Unauthorized"){
-        alert('Please login to add to wishlist')
+      if (error.response.data.message === "Recipe is already in wishlist") {
+        toast.error('Recipe is already in wishlist!', { // Error notification
+          position: "top-right",
+          autoClose: 3000,
+          style: { backgroundColor: 'black', color: '#EBE6E0' }
+        });
+      } else if (error.response.data === "Unauthorized") {
+        toast.error('Please login to add to wishlist!', { // Error notification
+          position: "top-right",
+          autoClose: 3000,
+          style: { backgroundColor: 'black', color: '#EBE6E0' }
+        });
       }
     }
   };
+
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -75,6 +88,7 @@ const Recipes = () => {
       }
     }
   };
+
   const getIngredients = (meal) => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
@@ -102,7 +116,7 @@ const Recipes = () => {
       <div className='flex flex-col justify-center items-center'>
         <h1 className="text-4xl font-bold text-[#4C7766]"> Our Recipes</h1>
         <p className="mt-2 text-gray-700 text-lg">Discover new recipes and try them out!</p>
-        <form onSubmit={handleSearch} className='flex justify-end items-center w-96 mt-5 border border-[#4C7766]rounded-full'>
+        <form onSubmit={handleSearch} className='flex justify-end items-center w-96 mt-5 border border-[#4C7766] rounded-full'>
           <input
             type="text"
             placeholder=" Search"
@@ -118,18 +132,15 @@ const Recipes = () => {
       <div className='flex flex-wrap justify-center items-center mt-4 gap-4'>
         {loading ? (
           <div className='flex justify-center items-center h-screen'>
-
             <Lottie options={defaultOptions} height={400} width={400} />
           </div>
         ) : (
           recipes ? recipes.map((recipe) => {
-
             return (
               <div key={recipe.idMeal} className='border border-gray-300 h-[460px] rounded-lg p-4 m-5 w-96 bg-[#4C7766] shadow-lg shadow-[#5ea78a] hover:scale-105 duration-300 '>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
                 <div className='flex justify-between mt-2'>
                   <h2 className='text-3xl font-bold mt-4 text-[#EBE6E0]'>{recipe.strMeal}</h2>
-
                   <div className="flex gap-3 justify-end mt-3">
                     <button
                       className={`p-2 rounded-full text-3xl text-white`}
@@ -162,6 +173,7 @@ const Recipes = () => {
           <DisplayRecipe recipe={recipe} setDisplayrecipe={setDisplayrecipe} ingredients={ingredients}></DisplayRecipe>
         </div>
       )}
+      <ToastContainer /> {/* Add ToastContainer here */}
     </div>
   );
 };
