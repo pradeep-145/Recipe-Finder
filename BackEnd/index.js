@@ -51,36 +51,49 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).send('Unauthorized');
   }
 };
-app.post('/translate', async(req, res) => {
+app.post('/translate', async (req, res) => {
   const { text, to } = req.body;
-  console.log(to)
-//   try{
-
-//     const response = await axios.post('https://api.cognitive.microsofttranslator.com/translate?api-version=3.0',
-      
-//       [
-//         {'Text': text}
-//       ],
-//       {
-//         headers: {
-//           'Ocp-Apim-Subscription-Key':process.env.SUBSCRIPTION_KEY,
-//           'Ocp-Apim-Subscription-Region':'southeastasia',
-//           'Content-Type':'application/json'
-//         },
-//         params: {
-//           'to': to
-//         }
-        
-//       }
-//     )
-//   res.json(response.data[0].translations[0].text)
-// }
-// catch(error){
-//   console.error('Error during translation:', error);
-//   res.status(400).json({ message: error.message });
-// }
+ 
   
+  try {
+    const response = await axios.post(
+      'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0',
+      [
+        { 'Text': text.ingredients.join(', ') }, 
+        { 'Text': text.instructions },
+        { 'Text': text.ingredientHeading },
+        { 'Text': text.instructionHeading },
+        { 'Text': text.videoHeading },
+      ],
+      {
+        headers: {
+          'Ocp-Apim-Subscription-Key': process.env.SUBSCRIPTION_KEY,
+          'Ocp-Apim-Subscription-Region': 'southeastasia',
+          'Content-Type': 'application/json'
+        },
+        params: {
+          'to': to
+        }
+      }
+    );
+
+    // Extract translated texts
+    const translations = {
+      ingredients: response.data[0].translations[0].text,
+      instructions: response.data[1].translations[0].text,
+      ingredientHeading: response.data[2].translations[0].text,
+      instructionHeading: response.data[3].translations[0].text,
+      videoHeading: response.data[4].translations[0].text
+    };
+
+    // Send the translated response
+    res.json(translations);
+  } catch (error) {
+    console.error('Error during translation:', error);
+    res.status(400).json({ message: error.message });
+  }
 });
+
 // Register route
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;

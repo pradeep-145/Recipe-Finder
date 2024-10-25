@@ -4,11 +4,12 @@ import { BsTranslate } from "react-icons/bs";
 import axios from 'axios';
 const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const videoId = recipe.strYoutube.split('v=')[1];
+  const [LocalIngredients, setLocalIngredients] = useState(ingredients);
   const [ingredientHeading, setIngredientHeading] = useState("Ingredients");
   const [instructionHeading, setInstructionHeading] = useState("Instructions");
   const [videoHeading, setVideoHeading] = useState("Watch Recipe Video");
+  const [instructions, setInstructions] = useState(recipe.strInstructions);
 
-  
   const languages = [
     { "name": "Afrikaans", "code": "af" },
     { "name": "Albanian", "code": "sq" },
@@ -95,20 +96,26 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
 
   const [selectedLanguage, setSelectedLanguage] = useState("en");
 
-  const handleLanguageChange = (recipe) => {
-    console.log(selectedLanguage)
+  const handleLanguageChange = (newLanguage, recipe) => {
+
     const request = {
       text: {
-        name: recipe.strMeal,
         ingredients: ingredients,
         instructions: recipe.strInstructions,
         ingredientHeading: ingredientHeading,
         instructionHeading: instructionHeading,
         videoHeading: videoHeading
       },
-      to: selectedLanguage
+      to: newLanguage
     };
-    // axios.post('http://localhost:3000/translate', request)
+    axios.post('http://localhost:3000/translate', request).then(response => {
+      setLocalIngredients(response.data.ingredients.split(','));
+      setInstructionHeading(response.data.instructionHeading);
+      setInstructions(response.data.instructions);
+      setIngredientHeading(response.data.ingredientHeading);
+      setVideoHeading(response.data.videoHeading);
+    }
+    ).catch(error => console.error(error.response.data));
   };
 
   return (
@@ -124,36 +131,35 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <BsTranslate style={{ marginRight: "10px" }} className='text-4xl text-[#4C7766]' />
           <select
-  className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
-  value={selectedLanguage}
-  onChange={(e) => {
-    const newLanguage = e.target.value; // Get the new language
-    setSelectedLanguage(newLanguage);   // Update state
-    handleLanguageChange(newLanguage, recipe); // Pass the newLanguage directly
-  }}
-  style={{ padding: "5px", fontSize: "16px" }}
->
-  {languages.map((lang) => (
-    <option key={lang.code} value={lang.code}>
-      {lang.name}
-    </option>
-  ))}
-</select>
-
+            className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
+            value={selectedLanguage}
+            onChange={(e) => {
+              const newLanguage = e.target.value;
+              setSelectedLanguage(newLanguage); // Update selected language
+              handleLanguageChange(newLanguage, recipe); // Call handleLanguageChange with updated language
+            }}
+            style={{ padding: "5px", fontSize: "16px" }}
+          >
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
 
         </div>
       </div>
       <div className="mt-12">
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{ingredientHeading}</h2>
         <ul className="list-disc list-inside mt-4 font-semibold">
-          {ingredients.map((ingredient, index) => (
+          {LocalIngredients.map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
       </div>
       <div className="mt-10">
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{instructionHeading}</h2>
-        <p className="mt-2">{recipe.strInstructions}</p>
+        <p className="mt-2">{instructions}</p>
       </div>
       <div className="mt-8">
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{videoHeading}</h2>

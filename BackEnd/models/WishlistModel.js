@@ -11,6 +11,7 @@ const RecipeSchema = new Schema({
   strCategory: { type: String, required: true },
   strInstructions: { type: String, required: true },
   strMealThumb: { type: String, required: true },
+  strArea: { type: String, required: true },
   strTags: { type: String },
   strYoutube: { type: String },
   strIngredient1: { type: String },
