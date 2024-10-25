@@ -77,7 +77,6 @@ app.post('/translate', async (req, res) => {
       }
     );
 
-    // Extract translated texts
     const translations = {
       ingredients: response.data[0].translations[0].text,
       instructions: response.data[1].translations[0].text,
@@ -86,7 +85,6 @@ app.post('/translate', async (req, res) => {
       videoHeading: response.data[4].translations[0].text
     };
 
-    // Send the translated response
     res.json(translations);
   } catch (error) {
     console.error('Error during translation:', error);
@@ -122,7 +120,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Protected route example
+// Protected route
 app.get('/protected', verifyToken, (req, res) => {
   return res.send(`Hello, ${req.user.email}! You are authenticated.`);
 });
@@ -132,7 +130,6 @@ app.post('/wishlist', verifyToken, async (req, res) => {
   const { recipe } = req.body;
   
   try {
-    // Check if the recipe already exists in the user's wishlist
     const existingWishlist = await Wishlist.findOne({ user: req.user.email });
     
     if (!existingWishlist) {
