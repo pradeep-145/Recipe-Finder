@@ -42,8 +42,8 @@ const Login = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="p-8 shadow-2xl rounded-lg bg-gray-300 font-sans max-w-sm w-full">
-                <h1 className="text-4xl text-center mb-6 font-bold text-red-800">Login</h1>
+            <div className="p-10 shadow-2xl shadow-black rounded-3xl bg-[#88baa6] border-2 border-gray-500 font-sans max-w-sm w-96">
+                <h1 className="text-4xl text-center mb-6 font-bold text-black">Login</h1>
 
                 <form action="">
                     <div className="relative my-6">
@@ -51,7 +51,7 @@ const Login = () => {
                             type="email"
                             name="email"
                             id="email"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-800 focus:outline-none"
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
                             placeholder=" Your Email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -63,30 +63,17 @@ const Login = () => {
                             type="password"
                             name="password"
                             id="password"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-800 focus:outline-none"
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
                             placeholder="Your Password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
                     </div>
 
-                    <div className="flex justify-between items-center gap-4 mb-6 text-sm">
-                        <div className="flex items-center">
-                            <input
-                                className="w-4 h-4 border-gray-300 rounded"
-                                type="checkbox"
-                                name="remember"
-                                id="remember"
-                            />
-                            <label htmlFor="remember" className="ml-2 text-red-800">Remember Me</label>
-                        </div>
-                        <div>
-                            <Link to="/forgot-password" className="text-red-600 hover:underline">Forgot Password?</Link>
-                        </div>
-                    </div>
+                    
 
                     <button
-                        className="w-full py-2 mb-4 text-lg text-white bg-red-700 rounded-full hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        className="w-full py-2 mb-4 text-xl text-white bg-black rounded-full hover:bg-[#4C7766] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#38ad7f]"
                         type="button"
                         onClick={() => handleSubmit()}
                     >
@@ -94,8 +81,8 @@ const Login = () => {
                     </button>
 
                     <div className="text-center">
-                        <span className="text-sm text-gray-600">
-                            New Here? <Link to="/register" className="text-red-600 hover:underline">Create an account</Link>
+                        <span className="text-md text-gray-800">
+                            New Here? <Link to="/register" className="text-black hover:underline">Create an account</Link>
                         </span>
                     </div>
                 </form>

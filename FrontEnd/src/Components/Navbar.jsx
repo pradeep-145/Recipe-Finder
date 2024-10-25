@@ -95,30 +95,30 @@ const Sidebar = () => {
           <ul className="flex flex-col px-4 gap-4 font-bold text-xl">
             <li>
               {loggedin?
-              <Link to="/home" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
+              <Link to="/home" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
                 Home<hr/>
               </Link>:
-              <Link to="/" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
+              <Link to="/" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
                 Home<hr/>
               </Link>
 
               }
             </li>
             <li>
-              <Link to="/recipes" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
+              <Link to="/recipes" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
                 Recipes<hr/>
               </Link>
             </li>
             {
               loggedin&&
             <li>
-              <Link to="/wishlist" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
+              <Link to="/wishlist" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
                 Wishlist<hr/>
               </Link>
             </li>
             }
             <li>
-              <Link to="/contact" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
+              <Link to="/contact" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
                 Contact<hr/>
               </Link>
             </li>
@@ -126,7 +126,7 @@ const Sidebar = () => {
             {
               loggedin &&
               <li>
-                <Link to="/" className="text-gray-100 hover:text-[#7fd8b5]" onClick={() => { toggleSidebar(); notify(); localStorage.removeItem('token') }}>
+                <Link to="/" className="text-gray-100 hover:text-black" onClick={() => { toggleSidebar(); notify(); localStorage.removeItem('token') }}>
                   Logout<hr/>
                 </Link>
               </li>
