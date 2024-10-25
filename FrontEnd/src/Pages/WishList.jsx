@@ -3,6 +3,7 @@ import axios from 'axios';
 import Lottie from 'react-lottie';
 import animationData from '../assets/loadingAnimation.json'; 
 import DisplayRecipe from '../Components/DisplayRecipe';
+import { useNavigate } from 'react-router-dom';
 
 
 const WishList = () => {
@@ -11,6 +12,7 @@ const WishList = () => {
   const [Displayrecipe, setDisplayrecipe] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState([]);
+  const navigate=useNavigate();
   const token=localStorage.getItem('token');
   useEffect(() => {
     setLoading(true);
@@ -23,8 +25,16 @@ const WishList = () => {
       console.log(response.data);
       setWishlist(response.data); 
     }
-    ).catch(error => console.error(error.response.data));
-  }
+    ).catch(err=>{
+      if(err.response.data=='Unauthorized'){
+        alert('You are not authorized to view this page')
+        setTimeout(() => {
+          navigate('/login')
+          
+        }, 1000);
+        
+      }
+  })}
   , []);
   const defaultOptions = {
     loop: true,
@@ -72,7 +82,18 @@ const WishList = () => {
                     }}>
                 View Recipe
               </button>
-              <button className="bg-[#EBE6E0] text-[#4C7766] px-4 py-2 mt-2  font-semibold rounded-lg">
+              <button className="bg-[#EBE6E0] text-[#4C7766] px-4 py-2 mt-2  font-semibold rounded-lg"
+              onClick={()=>{axios.delete(`http://localhost:3000/wishlist/${recipe.idMeal}`,{
+                headers:{
+                    'Authorization':`Bearer ${token}`
+                }
+            }).then(response => {
+                console.log(response.data);
+                setWishlist(wishlist.filter((item) => item.idMeal !== recipe.idMeal));
+            }
+            ).catch(error => console.error(error.response.data));}
+            }
+              >
                 Remove from Wishlist
               </button>
               </div>

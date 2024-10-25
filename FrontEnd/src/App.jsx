@@ -30,7 +30,7 @@ function App() {
         <Route path='/' element={
           <div>
             <div>
-              <Navbar  login={true}/>
+              <Navbar  />
             </div>
             <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex py-10 bg-cover min-h-screen bg-center ">
               <Landing/>
@@ -46,7 +46,7 @@ function App() {
         <Route path='/home' element={
           <div>
             <div>
-              <Navbar logout={true} />
+              <Navbar />
             </div>
             <div style={{ backgroundImage: `url(${backgroundImage})` }} className="flex py-10 bg-cover bg-center min-h-screen ">
               <Home/>
@@ -62,7 +62,7 @@ function App() {
         <Route path='/recipes' element={
           <div >
             <div>
-              <Navbar logout={true}/>
+              <Navbar/>
             </div>
             <div className='flex pt-28  bg-[#EBE6E0] h-full px-4'>
               <Recipes />
@@ -75,7 +75,7 @@ function App() {
         <Route path='/contact' element={
           <div>
             <div>
-              <Navbar logout={true}  />
+              <Navbar />
             </div>
             <div style={{ backgroundImage: `url(${kitchen})` }} className="flex py-10 bg-contain  min-h-screen ">
               <Contact />
@@ -88,7 +88,7 @@ function App() {
         <Route path='/wishlist' element={
           <div>
             <div>
-              <Navbar logout={true}  />
+              <Navbar  />
             </div>
             <div className='flex h-full pt-28 overflow-y-scroll bg-[#EBE6E0]'>
               <WishList />

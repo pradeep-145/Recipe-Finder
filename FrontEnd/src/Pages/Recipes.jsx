@@ -65,6 +65,10 @@ const Recipes = () => {
       }
     } catch (error) {
       console.error(error.response.data);
+      if(error.response.data.message=="Recipe is already in wishlist"){
+        alert('Recipe is already in wishlist')
+      }
+      
     }
   };
   
@@ -145,7 +149,7 @@ const Recipes = () => {
                     className={`p-2 rounded-full text-3xl ${isWishlisted ? 'text-red-500' : 'text-white'}`}
                     onClick={() => handleWishlist(recipe, isWishlisted)} 
                     >
-                    {isWishlisted ? <FaHeart /> : <FaRegHeart />}
+                     <FaHeart /> 
                   </button>
                   <button className="bg-[#EBE6E0] text-[#4C7766] px-4 font-semibold rounded-lg"
                     onClick={() => {

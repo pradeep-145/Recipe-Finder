@@ -96,6 +96,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   const handleLanguageChange = (recipe) => {
+    console.log(selectedLanguage)
     const request = {
       text: {
         name: recipe.strMeal,
@@ -107,7 +108,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
       },
       to: selectedLanguage
     };
-    axios.post('http://localhost:3000/translate', request)
+    // axios.post('http://localhost:3000/translate', request)
   };
 
   return (
@@ -123,20 +124,23 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <BsTranslate style={{ marginRight: "10px" }} className='text-4xl text-[#4C7766]' />
           <select
-            className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
-            value={selectedLanguage}
-            onChange={(e) => {
-              setSelectedLanguage(e.target.value);
-              handleLanguageChange(recipe);
-            }}
-            style={{ padding: "5px", fontSize: "16px" }}
-          >
-            {languages.map((lang) => (
-              <option key={lang.code} value={lang.code}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+  className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
+  value={selectedLanguage}
+  onChange={(e) => {
+    const newLanguage = e.target.value; // Get the new language
+    setSelectedLanguage(newLanguage);   // Update state
+    handleLanguageChange(newLanguage, recipe); // Pass the newLanguage directly
+  }}
+  style={{ padding: "5px", fontSize: "16px" }}
+>
+  {languages.map((lang) => (
+    <option key={lang.code} value={lang.code}>
+      {lang.name}
+    </option>
+  ))}
+</select>
+
+
         </div>
       </div>
       <div className="mt-12">

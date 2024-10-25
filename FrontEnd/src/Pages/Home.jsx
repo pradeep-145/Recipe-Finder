@@ -50,7 +50,7 @@ const Home = () => {
      
 
 
-    </div>:<h1 className='text-3xl text-center mt-20' >You are not authorized to view this page
+    </div>:<h1 className='text-3xl text-center mt-20' >
     </h1>
   }
     </>

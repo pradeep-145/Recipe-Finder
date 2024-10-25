@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import headerLogo from '../assets/home_logo.png';
 import { Link } from 'react-router-dom';
 import { ToastContainer,Bounce, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const Sidebar = ({ login, logout }) => {
+import axios from 'axios';
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const notify = () => toast.success('Logging you out!', {
     position: "top-right",
@@ -17,7 +17,29 @@ const Sidebar = ({ login, logout }) => {
     theme: "light",
     transition: Bounce,
     });
+    const token=localStorage.getItem('token');
+    const [loggedin,setLoggedin]=useState(false);
 
+    useEffect(()=>{
+      if(!token){
+      }
+      axios.get('http://localhost:3000/protected',{
+        headers:{
+          'Authorization':`Bearer ${token}`
+        }
+    })
+    .then(res=>{
+      
+      setLoggedin(true)
+
+    }).catch(err=>{
+      if(err.response.data=='Unauthorized'){
+        setLoggedin(false)
+      }
+      console.log(err.response.data)
+    }
+    )
+    })
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -30,7 +52,7 @@ const Sidebar = ({ login, logout }) => {
         <Link to="/home">
           <img src={headerLogo} alt="logo" width={50} height={29} className="m-2" />
         </Link>
-        {login && (
+        {!loggedin && (
           <button className="bg-transparent border-2 hover:border-gray-400 hover:text-gray-400 p-2 rounded-full text-white font-mono ml-[70%]">
             <Link to="/register">Login/SignUp</Link>
 
@@ -72,9 +94,15 @@ const Sidebar = ({ login, logout }) => {
         <nav className="mt-4">
           <ul className="flex flex-col px-4 gap-4 font-bold text-xl">
             <li>
+              {loggedin?
               <Link to="/home" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
                 Home<hr/>
+              </Link>:
+              <Link to="/" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
+                Home<hr/>
               </Link>
+
+              }
             </li>
             <li>
               <Link to="/recipes" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
@@ -82,7 +110,7 @@ const Sidebar = ({ login, logout }) => {
               </Link>
             </li>
             {
-              logout &&
+              loggedin&&
             <li>
               <Link to="/wishlist" className="text-gray-100 hover:text-[#7fd8b5]" onClick={toggleSidebar}>
                 Wishlist<hr/>
@@ -96,7 +124,7 @@ const Sidebar = ({ login, logout }) => {
             </li>
 
             {
-              logout &&
+              loggedin &&
               <li>
                 <Link to="/" className="text-gray-100 hover:text-[#7fd8b5]" onClick={() => { toggleSidebar(); notify(); localStorage.removeItem('token') }}>
                   Logout<hr/>
