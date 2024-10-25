@@ -162,7 +162,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
       </div>
 
       <div className="mt-8">
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{videoHeading}</h2>
+        <h2 className="text-2xl font-bold text-[#4C7766] mb-4 font-mono">{videoHeading}</h2>
         <iframe
           width="100%"
           height="315"
