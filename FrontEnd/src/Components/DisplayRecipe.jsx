@@ -4,10 +4,11 @@ import { BsTranslate } from "react-icons/bs";
 import axios from 'axios';
 const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const videoId = recipe.strYoutube.split('v=')[1];
+  const [LocalIngredients, setLocalIngredients] = useState(ingredients);
   const [ingredientHeading, setIngredientHeading] = useState("Ingredients");
   const [instructionHeading, setInstructionHeading] = useState("Instructions");
   const [videoHeading, setVideoHeading] = useState("Watch Recipe Video");
-
+  const [instructions, setInstructions] = useState(recipe.strInstructions);
 
   const languages = [
     { "name": "Afrikaans", "code": "af" },
@@ -96,29 +97,36 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const instructionsArray = recipe.strInstructions.split('. ');
 
-  const handleLanguageChange = (recipe) => {
-    console.log(selectedLanguage)
+  const handleLanguageChange = (newLanguage, recipe) => {
+
     const request = {
       text: {
-        name: recipe.strMeal,
         ingredients: ingredients,
         instructions: recipe.strInstructions,
         ingredientHeading: ingredientHeading,
         instructionHeading: instructionHeading,
         videoHeading: videoHeading
       },
-      to: selectedLanguage
+      to: newLanguage
     };
-    // axios.post('http://localhost:3000/translate', request)
+    axios.post('http://localhost:3000/translate', request).then(response => {
+      setLocalIngredients(response.data.ingredients.split(','));
+      setInstructionHeading(response.data.instructionHeading);
+      setInstructions(response.data.instructions);
+      setIngredientHeading(response.data.ingredientHeading);
+      setVideoHeading(response.data.videoHeading);
+    }
+    ).catch(error => console.error(error.response.data));
   };
 
   return (
-    <div className="bg-[#EBE6E0] text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2 border-2 border-black transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-y-scroll rounded-2xl">
-      <h1 className="text-5xl font-bold text-center text-[#4C7766] font-mono">{recipe.strMeal}</h1>
-      <button onClick={() => setDisplayrecipe(false)} className="fixed top-2 right-1 px-2 mr-1 rounded-full py-1 text-4xl text-[#4C7766]">
-        <IoCloseCircleSharp />
-      </button>
-      <img src={recipe.strMealThumb} alt={recipe.label} className="rounded-lg w-full mt-10 h-64 object-contain" />
+    <div className="bg-[#EBE6E0] text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2 border-2 border-black transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-y-scroll rounded-2xl flex flex-col items-center">
+  <h1 className="text-5xl font-bold text-center text-[#4C7766] font-mono">{recipe.strMeal}</h1>
+  <button onClick={() => setDisplayrecipe(false)} className="fixed top-2 right-1 px-2 mr-1 rounded-full py-1 text-4xl text-[#4C7766]">
+    <IoCloseCircleSharp />
+  </button>
+  <img src={recipe.strMealThumb} alt={recipe.label} className="rounded-lg  mt-10 shadow-[#5ea78a] shadow-lg h-64 object-contain" />
+
       <div className="text-lg font-semibold flex gap-6 justify-center items-center mt-10">
         <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 rounded-full">Origin : {recipe.strArea}</p>
         <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 rounded-full">Category : {recipe.strCategory}</p>
@@ -128,9 +136,9 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
             className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
             value={selectedLanguage}
             onChange={(e) => {
-              const newLanguage = e.target.value; // Get the new language
-              setSelectedLanguage(newLanguage);   // Update state
-              handleLanguageChange(newLanguage, recipe); // Pass the newLanguage directly
+              const newLanguage = e.target.value;
+              setSelectedLanguage(newLanguage); // Update selected language
+              handleLanguageChange(newLanguage, recipe); // Call handleLanguageChange with updated language
             }}
             style={{ padding: "5px", fontSize: "16px" }}
           >
@@ -141,28 +149,23 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
             ))}
           </select>
 
-
         </div>
       </div>
       <div className="mt-12">
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{ingredientHeading}</h2>
         <ul className="list-disc list-inside mt-4 font-semibold">
-          {ingredients.map((ingredient, index) => (
+          {LocalIngredients.map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
       </div>
       <div className="mt-10">
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">Instructions</h2>
-        <ul className="mt-2 list-disc">
-          {instructionsArray.map((sentence, index) => (
-            <li key={index}>{sentence.trim()}.</li>
-          ))}
-        </ul>
+        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{instructionHeading}</h2>
+        <p className="mt-2 text-justify">{instructions}</p>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold text-[#4C7766] mb-4 font-mono">{videoHeading}</h2>
+      <div className="mt-8 w-full">
+        <h2 className="text-2xl font-bold text-[#4C7766] mb-4  font-mono">{videoHeading}</h2>
         <iframe
           width="100%"
           height="315"
