@@ -54,7 +54,7 @@ const Sidebar = () => {
         </Link>
         {!loggedin && (
           <button className="bg-transparent border-2 hover:border-gray-400 hover:text-gray-400 p-2 rounded-full text-white font-mono ml-[70%]">
-            <Link to="/register">Login/SignUp</Link>
+            <Link to="/login">Login/SignUp</Link>
 
           </button>
         )}

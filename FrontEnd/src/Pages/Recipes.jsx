@@ -53,11 +53,12 @@ const Recipes = () => {
 
 
     } catch (error) {
-      console.error(error.response.data);
       if (error.response.data.message == "Recipe is already in wishlist") {
         alert('Recipe is already in wishlist')
       }
-
+      else if(error.response.data == "Unauthorized"){
+        alert('Please login to add to wishlist')
+      }
     }
   };
   const handleSearch = async (e) => {
