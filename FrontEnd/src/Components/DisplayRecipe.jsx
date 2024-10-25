@@ -8,7 +8,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const [instructionHeading, setInstructionHeading] = useState("Instructions");
   const [videoHeading, setVideoHeading] = useState("Watch Recipe Video");
 
-  
+
   const languages = [
     { "name": "Afrikaans", "code": "af" },
     { "name": "Albanian", "code": "sq" },
@@ -94,6 +94,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   ];
 
   const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const instructionsArray = recipe.strInstructions.split('. ');
 
   const handleLanguageChange = (recipe) => {
     console.log(selectedLanguage)
@@ -124,21 +125,21 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <BsTranslate style={{ marginRight: "10px" }} className='text-4xl text-[#4C7766]' />
           <select
-  className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
-  value={selectedLanguage}
-  onChange={(e) => {
-    const newLanguage = e.target.value; // Get the new language
-    setSelectedLanguage(newLanguage);   // Update state
-    handleLanguageChange(newLanguage, recipe); // Pass the newLanguage directly
-  }}
-  style={{ padding: "5px", fontSize: "16px" }}
->
-  {languages.map((lang) => (
-    <option key={lang.code} value={lang.code}>
-      {lang.name}
-    </option>
-  ))}
-</select>
+            className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
+            value={selectedLanguage}
+            onChange={(e) => {
+              const newLanguage = e.target.value; // Get the new language
+              setSelectedLanguage(newLanguage);   // Update state
+              handleLanguageChange(newLanguage, recipe); // Pass the newLanguage directly
+            }}
+            style={{ padding: "5px", fontSize: "16px" }}
+          >
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
 
 
         </div>
@@ -152,9 +153,14 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         </ul>
       </div>
       <div className="mt-10">
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{instructionHeading}</h2>
-        <p className="mt-2">{recipe.strInstructions}</p>
+        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">Instructions</h2>
+        <ul className="mt-2 list-disc">
+          {instructionsArray.map((sentence, index) => (
+            <li key={index}>{sentence.trim()}.</li>
+          ))}
+        </ul>
       </div>
+
       <div className="mt-8">
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{videoHeading}</h2>
         <iframe
