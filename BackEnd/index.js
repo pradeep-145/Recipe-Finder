@@ -53,9 +53,7 @@ const verifyToken = async (req, res, next) => {
 };
 app.post('/translate', async(req, res) => {
   const { text, to } = req.body;
-
-
-  console.log(text)
+  console.log(to)
 //   try{
 
 //     const response = await axios.post('https://api.cognitive.microsofttranslator.com/translate?api-version=3.0',

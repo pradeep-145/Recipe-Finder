@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { BsTranslate } from "react-icons/bs";
-
+import axios from 'axios';
 const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const videoId = recipe.strYoutube.split('v=')[1];
+  const [ingredientHeading, setIngredientHeading] = useState("Ingredients");
+  const [instructionHeading, setInstructionHeading] = useState("Instructions");
+  const [videoHeading, setVideoHeading] = useState("Watch Recipe Video");
 
+  
   const languages = [
     { "name": "Afrikaans", "code": "af" },
     { "name": "Albanian", "code": "sq" },
@@ -91,9 +95,19 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
 
   const [selectedLanguage, setSelectedLanguage] = useState("en");
 
-  const handleLanguageChange = (e) => {
-    setSelectedLanguage(e.target.value);
-    // Handle the language change logic here
+  const handleLanguageChange = (recipe) => {
+    const request = {
+      text: {
+        name: recipe.strMeal,
+        ingredients: ingredients,
+        instructions: recipe.strInstructions,
+        ingredientHeading: ingredientHeading,
+        instructionHeading: instructionHeading,
+        videoHeading: videoHeading
+      },
+      to: selectedLanguage
+    };
+    axios.post('http://localhost:3000/translate', request)
   };
 
   return (
@@ -108,9 +122,13 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 rounded-full">Category : {recipe.strCategory}</p>
         <div style={{ display: "flex", alignItems: "center" }}>
           <BsTranslate style={{ marginRight: "10px" }} className='text-4xl text-[#4C7766]' />
-          <select className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
+          <select
+            className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
             value={selectedLanguage}
-            onChange={handleLanguageChange}
+            onChange={(e) => {
+              setSelectedLanguage(e.target.value);
+              handleLanguageChange(recipe);
+            }}
             style={{ padding: "5px", fontSize: "16px" }}
           >
             {languages.map((lang) => (
@@ -122,7 +140,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         </div>
       </div>
       <div className="mt-12">
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">Ingredients</h2>
+        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{ingredientHeading}</h2>
         <ul className="list-disc list-inside mt-4 font-semibold">
           {ingredients.map((ingredient, index) => (
             <li key={index}>{ingredient}</li>
@@ -130,17 +148,16 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         </ul>
       </div>
       <div className="mt-10">
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">Instructions</h2>
+        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{instructionHeading}</h2>
         <p className="mt-2">{recipe.strInstructions}</p>
       </div>
       <div className="mt-8">
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">Watch Recipe Video</h2>
+        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{videoHeading}</h2>
         <iframe
           width="100%"
           height="315"
           src={`https://www.youtube.com/embed/${videoId}`}
           title="YouTube video player"
-          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>

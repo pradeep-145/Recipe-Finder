@@ -64,7 +64,7 @@ function App() {
             <div>
               <Navbar logout={true}/>
             </div>
-            <div className='flex pt-28 overflow-y-scroll bg-[#EBE6E0] h-full px-4'>
+            <div className='flex pt-28  bg-[#EBE6E0] h-full px-4'>
               <Recipes />
             </div>
             <div className='bottom-0  w-full m-0'>
