@@ -8,12 +8,7 @@ const Footer = () => {
   return (
     <footer className="max-container px-2 bg-[#bbdfd0]">
       <div className="flex justify-between items-start gap-20 ml-3 flex-wrap max-lg:flex-col ">
-        <div className="flex flex-col items-start mt-2">
-          <a href="/">
-            <img src={footerLogo} alt="logo" width={100} height={46} className="cursor-pointer m-0" />
-          </a>
-          
-
+        <div className="flex flex-col items-start mt-2">         
           <div className="flex items-center mt-2 gap-5">
             <div className="flex justify-center items-center w-12 h-12 rounded-full bg-white ">
               <img src={facebook} width={24} height={24} />
@@ -24,6 +19,11 @@ const Footer = () => {
             <div className="flex justify-center items-center w-12 h-12 rounded-full bg-white ">
               <img src={instagram} width={24} height={24} />
             </div>
+            <div>
+            <a href="/">
+            <img src={footerLogo} alt="logo" width={100} height={46} className="cursor-pointer m-0" />
+          </a>
+          </div>
           </div>
         </div>
         </div>
