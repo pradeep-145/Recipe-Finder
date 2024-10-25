@@ -49,7 +49,9 @@ const Recipes = () => {
             'Authorization': `Bearer ${token}`
           }
         }
-      );
+      )
+
+
     } catch (error) {
       console.error(error.response.data);
       if (error.response.data.message == "Recipe is already in wishlist") {
@@ -58,8 +60,6 @@ const Recipes = () => {
 
     }
   };
-
-
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,7 +74,6 @@ const Recipes = () => {
       }
     }
   };
-
   const getIngredients = (meal) => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {

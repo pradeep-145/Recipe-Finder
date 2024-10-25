@@ -90,7 +90,7 @@ function App() {
             <div>
               <Navbar  />
             </div>
-            <div className='flex h-full pt-28 overflow-y-scroll bg-[#EBE6E0]'>
+            <div className='flex h-[100vh] pt-28 overflow-y-scroll bg-[#EBE6E0]'>
               <WishList />
             </div>
             <div className='  w-full m-0 bottom-0'>
