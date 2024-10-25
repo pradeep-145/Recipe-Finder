@@ -10,10 +10,6 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const [videoHeading, setVideoHeading] = useState("Watch Recipe Video");
   const [instructions, setInstructions] = useState(recipe.strInstructions);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a9d5995315dc973a9d507889f50be4819fb66ec6
   const languages = [
     { "name": "Afrikaans", "code": "af" },
     { "name": "Albanian", "code": "sq" },
@@ -139,15 +135,9 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
             className='border-2 border-[#4C7766] bg-[#EBE6E0] text-[#4C7766] p-2 rounded-full'
             value={selectedLanguage}
             onChange={(e) => {
-<<<<<<< HEAD
               const newLanguage = e.target.value;
               setSelectedLanguage(newLanguage); // Update selected language
               handleLanguageChange(newLanguage, recipe); // Call handleLanguageChange with updated language
-=======
-              const newLanguage = e.target.value; // Get the new language
-              setSelectedLanguage(newLanguage);   // Update state
-              handleLanguageChange(newLanguage, recipe); // Pass the newLanguage directly
->>>>>>> a9d5995315dc973a9d507889f50be4819fb66ec6
             }}
             style={{ padding: "5px", fontSize: "16px" }}
           >
@@ -157,10 +147,6 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
               </option>
             ))}
           </select>
-<<<<<<< HEAD
-=======
-
->>>>>>> a9d5995315dc973a9d507889f50be4819fb66ec6
 
         </div>
       </div>
@@ -173,17 +159,8 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         </ul>
       </div>
       <div className="mt-10">
-<<<<<<< HEAD
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{instructionHeading}</h2>
         <p className="mt-2">{instructions}</p>
-=======
-        <h2 className="text-2xl font-bold text-[#4C7766] font-mono">Instructions</h2>
-        <ul className="mt-2 list-disc">
-          {instructionsArray.map((sentence, index) => (
-            <li key={index}>{sentence.trim()}.</li>
-          ))}
-        </ul>
->>>>>>> a9d5995315dc973a9d507889f50be4819fb66ec6
       </div>
 
       <div className="mt-8">
