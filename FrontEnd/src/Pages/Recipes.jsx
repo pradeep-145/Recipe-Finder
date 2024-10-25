@@ -30,7 +30,7 @@ const Recipes = () => {
         setLoading(false);
       });
 
-    axios.get('http://localhost:3000/wishlist', {
+    axios.get('https://recipe-finder-usfp.onrender.com/wishlist', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -43,7 +43,7 @@ const Recipes = () => {
   const handleWishlist = async (recipe) => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/wishlist',
+        'https://recipe-finder-usfp.onrender.com/wishlist',
         { recipe: recipe },
         {
           headers: {

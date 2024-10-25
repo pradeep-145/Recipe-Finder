@@ -37,7 +37,7 @@ const Login = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.post('http://localhost:3000/login', { email, password });
+            const res = await axios.post('https://recipe-finder-usfp.onrender.com/login', { email, password });
             
             // Check for successful login message
             if (res.data.message === 'Success') {

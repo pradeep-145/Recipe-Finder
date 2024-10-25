@@ -16,7 +16,7 @@ const WishList = () => {
   const token=localStorage.getItem('token');
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:3000/wishlist',{
+    axios.get('https://recipe-finder-usfp.onrender.com/wishlist',{
       headers:{
         'Authorization':`Bearer ${token}`
       }
@@ -83,7 +83,7 @@ const WishList = () => {
                 View Recipe
               </button>
               <button className="bg-[#EBE6E0] text-[#4C7766] px-4 py-2 mt-2  font-semibold rounded-lg"
-              onClick={()=>{axios.delete(`http://localhost:3000/wishlist/${recipe.idMeal}`,{
+              onClick={()=>{axios.delete(`https://recipe-finder-usfp.onrender.com/wishlist/${recipe.idMeal}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }

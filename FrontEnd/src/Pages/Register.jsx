@@ -48,7 +48,7 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3000/register', { email, password });
+            const response = await axios.post('https://recipe-finder-usfp.onrender.com/register', { email, password });
             if (response.data.message === 'User registered successfully') {
                 notifySuccess(); // Call success toast
                 navigate('/login');
