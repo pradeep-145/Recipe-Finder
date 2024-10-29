@@ -109,7 +109,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
       },
       to: newLanguage
     };
-    axios.post('http://localhost:3000/translate', request).then(response => {
+    axios.post('https://recipe-finder-usfp.onrender.com/translate', request).then(response => {
       setLocalIngredients(response.data.ingredients.split(','));
       setInstructionHeading(response.data.instructionHeading);
       setInstructions(response.data.instructions);

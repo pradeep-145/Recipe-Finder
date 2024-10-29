@@ -9,7 +9,7 @@ const Home = () => {
     const token=localStorage.getItem('token')
     if(!token){
     }
-    axios.get('http://localhost:3000/protected',{
+    axios.get('https://recipe-finder-usfp.onrender.com/protected',{
       headers:{
         'Authorization':`Bearer ${token}`
       }
