@@ -5,7 +5,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import Lottie from 'react-lottie';
 import animationData from '../assets/loadingAnimation.json';
 import DisplayRecipe from '../Components/DisplayRecipe';
-import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import { ToastContainer, Flip,toast } from 'react-toastify'; // Import ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
 const Recipes = () => {
@@ -52,23 +52,26 @@ const Recipes = () => {
         }
       );
       toast.success('Recipe added to wishlist!', { // Success notification
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
-        style: { backgroundColor: 'black', color: '#EBE6E0' }
+        style: { backgroundColor: 'black', color: '#EBE6E0' },
+        transition: Flip,
       });
 
     } catch (error) {
       if (error.response.data.message === "Recipe is already in wishlist") {
         toast.error('Recipe is already in wishlist!', { // Error notification
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
-          style: { backgroundColor: 'black', color: '#EBE6E0' }
+          style: { backgroundColor: 'black', color: '#EBE6E0' },
+          transition: Flip,
         });
       } else if (error.response.data === "Unauthorized") {
         toast.error('Please login to add to wishlist!', { // Error notification
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
-          style: { backgroundColor: 'black', color: '#EBE6E0' }
+          style: { backgroundColor: 'black', color: '#EBE6E0' },
+          transition: Flip,
         });
       }
     }
@@ -137,10 +140,10 @@ const Recipes = () => {
         ) : (
           recipes ? recipes.map((recipe) => {
             return (
-              <div key={recipe.idMeal} className='border border-gray-300 h-[460px] rounded-lg p-4 m-5 w-96 bg-[#4C7766] shadow-lg shadow-[#5ea78a] hover:scale-105 duration-300 '>
+              <div key={recipe.idMeal} className='border border-gray-300 h-auto rounded-lg p-4 m-5 w-96 bg-[#4C7766] shadow-lg shadow-[#5ea78a] hover:scale-105 duration-300 '>
                 <img src={recipe.strMealThumb} className='w-full rounded-lg' alt={recipe.strMeal} />
                 <div className='flex justify-between mt-2'>
-                  <h2 className='text-3xl font-bold mt-4 text-[#EBE6E0]'>{recipe.strMeal}</h2>
+                  <h2 className='text-2xl font-bold mt-4 text-[#EBE6E0]'>{recipe.strMeal}</h2>
                   <div className="flex gap-3 justify-end mt-3">
                     <button
                       className={`p-2 rounded-full text-3xl text-white`}
