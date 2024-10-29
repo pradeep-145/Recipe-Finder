@@ -53,7 +53,7 @@ const Sidebar = () => {
           <img src={headerLogo} alt="logo" width={50} height={29} className="m-2" />
         </Link>
         {!loggedin && (
-          <button className="bg-transparent border-2 hover:border-gray-400 hover:text-gray-400 p-2 rounded-full text-white font-mono ml-[70%]">
+          <button className="bg-transparent border-4 hover:border-black hover:text-amber-50 p-2 rounded-full text-white font-mono font-bold ml-[70%]">
             <Link to="/login">Login/SignUp</Link>
 
           </button>
