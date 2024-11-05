@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { BsTranslate } from "react-icons/bs";
 import axios from 'axios';
+import ingredientSubstitutions from '../Substitutes/substitute.json';
+
+
 const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const videoId = recipe.strYoutube.split('v=')[1];
   const [LocalIngredients, setLocalIngredients] = useState(ingredients);
@@ -9,6 +12,9 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
   const [instructionHeading, setInstructionHeading] = useState("Instructions");
   const [videoHeading, setVideoHeading] = useState("Watch Recipe Video");
   const [instructions, setInstructions] = useState(recipe.strInstructions);
+  const getSubstitutes = (ingredient) => {
+    return ingredientSubstitutions[ingredient] || [];
+  };
 
   const languages = [
     { "name": "Afrikaans", "code": "af" },
@@ -155,7 +161,14 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients }) => {
         <h2 className="text-2xl font-bold text-[#4C7766] font-mono">{ingredientHeading}</h2>
         <ul className="list-disc list-inside mt-4 font-semibold">
           {LocalIngredients.map((ingredient, index) => (
-            <li key={index}>{ingredient}</li>
+            <li key={index}>{ingredient}
+            {getSubstitutes(ingredient.split(' ')[1]).length > 0 && (
+                <div className="ml-7 text-md text-gray-700">
+                  (
+                  <span className="font-semibold">Substitutes:</span> {getSubstitutes(ingredient.split(' ')[1]).join(', ')}
+                  )</div>
+              )}
+                  </li>
           ))}
         </ul>
       </div>
