@@ -4,6 +4,7 @@ const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } = 
 const firebase = require('firebase/app');
 const mongoose = require('mongoose');
 const Wishlist = require('./models/WishlistModel');
+const Rating = require('./models/RatingModel');
 const cors = require('cors');
 const {translate}=require('libretranslate')
 const axios=require('axios')
@@ -195,6 +196,53 @@ app.get('/wishlist', verifyToken, async (req, res) => {
   } catch (error) {
     console.error('Error fetching wishlist:', error);
     return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/recipe/:id/ratings', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const recipeRating = await Rating.findOne({ recipeId: id });
+    if (!recipeRating || recipeRating.ratings.length === 0) {
+      return res.json({ averageRating: 0 });
+    }
+    const total = recipeRating.ratings.reduce((sum, { rating }) => sum + rating, 0);
+    const averageRating = (total / recipeRating.ratings.length).toFixed(1);
+    res.json({ averageRating });
+  } catch (error) {
+    console.error('Error fetching ratings:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// POST: Add or Update a rating for a recipe
+app.post('/recipe/:id/rate', verifyToken, async (req, res) => {
+  const { id } = req.params;
+  const { rating } = req.body;
+
+  if (rating < 1 || rating > 5) {
+    return res.status(400).json({ message: 'Rating must be between 1 and 5' });
+  }
+
+  try {
+    let recipeRating = await Rating.findOne({ recipeId: id });
+    if (!recipeRating) {
+      recipeRating = new Rating({ recipeId: id, ratings: [] });
+    }
+
+    // Check if the user already rated
+    const existingRating = recipeRating.ratings.find((r) => r.user === req.user.email);
+    if (existingRating) {
+      existingRating.rating = rating;
+    } else {
+      recipeRating.ratings.push({ user: req.user.email, rating });
+    }
+
+    await recipeRating.save();
+    res.status(201).json({ message: 'Rating submitted successfully' });
+  } catch (error) {
+    console.error('Error adding/updating rating:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
