@@ -46,7 +46,7 @@ const verifyToken = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken;
-    console.log(decodedToken)
+   
     next();
   } catch (error) {
     console.error('Error verifying token:', error);
@@ -201,14 +201,18 @@ app.get('/wishlist', verifyToken, async (req, res) => {
 
 app.get('/recipe/:id/ratings', async (req, res) => {
   const { id } = req.params;
+
   try {
+   
     const recipeRating = await Rating.findOne({ recipeId: id });
     if (!recipeRating || recipeRating.ratings.length === 0) {
       return res.json({ averageRating: 0 });
     }
     const total = recipeRating.ratings.reduce((sum, { rating }) => sum + rating, 0);
     const averageRating = (total / recipeRating.ratings.length).toFixed(1);
-    res.json({ averageRating });
+   
+    
+    res.json({ averageRating:averageRating });
   } catch (error) {
     console.error('Error fetching ratings:', error);
     res.status(500).json({ message: 'Internal server error' });

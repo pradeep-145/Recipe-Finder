@@ -38,9 +38,10 @@ const Recipes = () => {
       const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`);
       const fetchedRecipes = response.data.meals || [];
       setRecipes(fetchedRecipes);
-      // Fetch ratings for each recipe
+      
       fetchedRecipes.forEach(recipe => {
         fetchAverageRating(recipe.idMeal);
+        
       });
       setLoading(false);
     } catch (error) {
@@ -64,11 +65,13 @@ const Recipes = () => {
 
   const fetchAverageRating = async (recipeId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/recipe/${recipe.id}/ratings`);
+      const response = await axios.get(`http://localhost:3000/recipe/${recipeId}/ratings`);
       setRatings(prevRatings => ({
         ...prevRatings,
         [recipeId]: response.data.averageRating
       }));
+      
+      
     } catch (error) {
       console.error(`Error fetching ratings for recipe ${recipeId}:`, error.response?.data || error.message);
     }
@@ -172,6 +175,7 @@ const Recipes = () => {
         ) : (
           recipes.length > 0 ? (
             recipes.map((recipe) => {
+              
               const isWishlisted = wishlist.some(wishItem => wishItem.idMeal === recipe.idMeal);
               return (
                 <div key={recipe.idMeal} className='border border-gray-300 hover:scale-105 duration-300 rounded-lg p-3 m-5 w-80 bg-[#4C7766] shadow-lg shadow-[#5ea78a] flex flex-col'>
