@@ -184,7 +184,8 @@ app.delete('/wishlist/:idMeal', verifyToken, async (req, res) => {
   }
 });
 
-// GET: Retrieve wishlist for the authenticated user
+
+
 app.get('/wishlist', verifyToken, async (req, res) => {
   try {
     const userWishlist = await Wishlist.findOne({ user: req.user.email });
@@ -251,67 +252,9 @@ app.post('/recipe/:id/rate', verifyToken, async (req, res) => {
 });
 
 
-// In app.js or routes file
-const Recipe = require('./models/RecipeModel');
 
-// POST: Add a new recipe
-app.post('/recipes', verifyToken, async (req, res) => {
-  try {
-    const { name, origin, ingredients, instructions, videoLink } = req.body;
-    const newRecipe = new Recipe({
-      userId: req.user.uid,
-      name,
-      origin,
-      ingredients,
-      instructions,
-      videoLink,
-      ratings: []
-    });
-    await newRecipe.save();
-    res.status(201).json(newRecipe);
-  } catch (error) {
-    res.status(500).json({ message: "Error adding recipe", error });
-  }
-});
 
-// GET: Retrieve all recipes
-app.get('/recipes', async (req, res) => {
-  try {
-    const recipes = await Recipe.find();
-    res.json(recipes);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching recipes", error });
-  }
-});
 
-// DELETE: Remove a recipe (only by the user who posted it)
-app.delete('/recipes/:id', verifyToken, async (req, res) => {
-  try {
-    const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) return res.status(404).json({ message: "Recipe not found" });
-    if (recipe.userId !== req.user.uid) return res.status(403).json({ message: "Unauthorized" });
-    
-    await recipe.remove();
-    res.json({ message: "Recipe deleted" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting recipe", error });
-  }
-});
-
-// POST: Rate a recipe
-app.post('/recipes/:id/rate', verifyToken, async (req, res) => {
-  try {
-    const { rating } = req.body;
-    const recipe = await Recipe.findById(req.params.id);
-    recipe.ratings.push(rating);
-    await recipe.save();
-
-    const averageRating = recipe.ratings.reduce((a, b) => a + b, 0) / recipe.ratings.length;
-    res.json({ averageRating });
-  } catch (error) {
-    res.status(500).json({ message: "Error rating recipe", error });
-  }
-});
 
 const PORT = 3000;
 app.listen(PORT, () => {
