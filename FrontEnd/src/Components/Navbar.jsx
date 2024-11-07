@@ -117,14 +117,7 @@ const Sidebar = () => {
               </Link>
             </li>
             }
-            {
-              loggedin&&
-            <li>
-              <Link to="/addrecipe" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
-                Add Recipes<hr/>
-              </Link>
-            </li>
-            }
+            
             <li>
               <Link to="/contact" className="text-gray-100 hover:text-black" onClick={toggleSidebar}>
                 Contact<hr/>
