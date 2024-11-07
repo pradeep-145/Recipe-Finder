@@ -11,7 +11,6 @@ import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
 import Register from './Pages/Register';
 import WishList from './Pages/WishList';
-import AddRecipe from './Pages/AddRecipe';
 
 function App() {
   return (
@@ -93,19 +92,6 @@ function App() {
             </div>
             <div className='flex h-[100vh] pt-28 overflow-y-scroll bg-[#EBE6E0]'>
               <WishList />
-            </div>
-            <div className='  w-full m-0 bottom-0'>
-              <Footer/>
-            </div>
-          </div>
-        } />
-        <Route path='/addrecipe' element={
-          <div>
-            <div>
-              <Navbar  />
-            </div>
-            <div style={{ backgroundImage: `url(${kitchen})` }} className="flex py-16 justify-center items-center bg-contain  min-h-screen ">
-              <AddRecipe />
             </div>
             <div className='  w-full m-0 bottom-0'>
               <Footer/>
