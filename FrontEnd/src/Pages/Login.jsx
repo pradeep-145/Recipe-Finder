@@ -3,11 +3,28 @@ import axios from 'axios';
 import { useState } from 'react';
 import { ToastContainer,Bounce,Slide,Flip,Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useEffect } from 'react';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+        axios.get('http://localhost:5000/protected', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => {
+          if(res.success){
+            navigate('/home')
+          }
+      
+      
+        }
+      )}
+        , []);
 
     const notifySuccess = () => toast.success('Logging you in!', {
         position: "top-center",

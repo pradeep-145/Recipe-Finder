@@ -1,15 +1,24 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import axios from 'axios'
 const Landing = () => {
   const token=localStorage.getItem('token')
   const navigate=useNavigate()
   useEffect(() => {
 
-  if(token){
-    navigate('/home')
+  axios.get('http://localhost:5000/protected', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(res => {
+    if(res.success){
+      navigate('/home')
+    }
+
+
   }
-  }
+)}
   , []);
 
   return (
