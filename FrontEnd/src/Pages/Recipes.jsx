@@ -161,7 +161,7 @@ const Recipes = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button type="submit" className="absolute right-0 bg-[#4C7766] text-white px-3 rounded-full py-1">
+          <button type="submit" className="absolute right-1 bg-[#4C7766] text-white px-3 rounded-full py-1">
             <HiOutlineSearch className='h-6 w-6' />
           </button>
         </form>
