@@ -184,7 +184,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients, fetchAverageRati
   };
 
   return (
-    <div className="bg-[#EBE6E0] sm:p-2 text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2 border-2 border-black transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-y-scroll rounded-2xl flex flex-col items-center">
+    <div className="bg-[#EBE6E0] text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2 border-2 border-black transform -translate-x-1/2 -translate-y-1/2 lg:p-20 overflow-y-scroll rounded-2xl flex flex-col items-center">
       <h1 className="text-5xl font-bold text-center text-[#4C7766] font-mono">{recipe.strMeal}</h1>
       <button onClick={() => setDisplayrecipe(false)} className="absolute top-4 right-4 px-2 rounded-full py-1 text-4xl text-[#4C7766]">
         <IoCloseCircleSharp />
