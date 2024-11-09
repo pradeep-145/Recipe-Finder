@@ -43,7 +43,6 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
   return (
 
     <div className="relative">
