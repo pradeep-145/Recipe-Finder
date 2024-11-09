@@ -14,7 +14,7 @@ import WishList from './Pages/WishList';
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
      
       <Routes>
         <Route path='/login' element={
@@ -100,7 +100,7 @@ function App() {
           </div>
         } />
       </Routes>
-          </div>
+        </BrowserRouter>
   );
 
 }
