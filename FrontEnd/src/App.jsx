@@ -14,8 +14,7 @@ import WishList from './Pages/WishList';
 
 function App() {
   return (
-    <BrowserRouter>
-     
+
       <Routes>
         <Route path='/login' element={
             <div style={{ backgroundImage: `url(${kitchen})` }} className="flex py-10 bg-contain justify-center items-center  min-h-screen ">
@@ -100,7 +99,6 @@ function App() {
           </div>
         } />
       </Routes>
-        </BrowserRouter>
   );
 
 }
