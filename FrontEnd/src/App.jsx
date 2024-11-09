@@ -1,4 +1,4 @@
-import { Route, Routes, HashRouter} from 'react-router-dom';
+import { Route, Routes, HashRouter, BrowserRouter} from 'react-router-dom';
 import backgroundImage from './assets/background.jpg';
 import kitchen from './assets/kitchen.jpg';
 import Footer from './Components/Footer';
@@ -14,7 +14,7 @@ import WishList from './Pages/WishList';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
      
       <Routes>
         <Route path='/login' element={
@@ -100,7 +100,7 @@ function App() {
           </div>
         } />
       </Routes>
-        </HashRouter>
+        </BrowserRouter>
   );
 
 }
