@@ -8,10 +8,12 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    if(localStorage.getItem('token')){
 
-    useEffect(() => {
+        const token=localStorage.getItem('token');
+        useEffect(() => {
 
-        axios.get('http://localhost:5000/protected', {
+        axios.get('https://recipe-finder-usfp.onrender.com/protected', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -24,9 +26,10 @@ const Login = () => {
       
         }
       )}
-        , []);
+      , []);
 
-    const notifySuccess = () => toast.success('Logging you in!', {
+    }
+      const notifySuccess = () => toast.success('Logging you in!', {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,

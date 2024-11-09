@@ -6,7 +6,7 @@ const Landing = () => {
   const navigate=useNavigate()
   useEffect(() => {
 
-  axios.get('http://localhost:5000/protected', {
+  axios.get('https://recipe-finder-usfp.onrender.com/protected', {
     headers: {
       Authorization: `Bearer ${token}`
     }
