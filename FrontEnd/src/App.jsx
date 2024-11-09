@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import backgroundImage from './assets/background.jpg';
 import kitchen from './assets/kitchen.jpg';
 import Footer from './Components/Footer';
@@ -15,6 +15,7 @@ import WishList from './Pages/WishList';
 function App() {
   return (
     <div>
+      <BrowserRouter>
       <Routes>
         <Route path='/login' element={
             <div style={{ backgroundImage: `url(${kitchen})` }} className="flex py-10 bg-contain justify-center items-center  min-h-screen ">
@@ -99,7 +100,8 @@ function App() {
           </div>
         } />
       </Routes>
-    </div>
+    </BrowserRouter>
+        </div>
   );
 
 }
