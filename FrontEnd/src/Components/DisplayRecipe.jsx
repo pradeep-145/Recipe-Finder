@@ -150,6 +150,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients, fetchAverageRati
         autoClose: 3000,
         style: { backgroundColor: 'black', color: '#EBE6E0' },
         transition: Flip,
+        
       });
       return;
     }
@@ -183,16 +184,16 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients, fetchAverageRati
   };
 
   return (
-    <div className="bg-[#EBE6E0] text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2 border-2 border-black transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-y-scroll rounded-2xl flex flex-col items-center">
+    <div className="bg-[#EBE6E0] sm:p-2 text-xl w-3/4 h-3/4 fixed top-1/2 left-1/2 border-2 border-black transform -translate-x-1/2 -translate-y-1/2 p-20 overflow-y-scroll rounded-2xl flex flex-col items-center">
       <h1 className="text-5xl font-bold text-center text-[#4C7766] font-mono">{recipe.strMeal}</h1>
       <button onClick={() => setDisplayrecipe(false)} className="absolute top-4 right-4 px-2 rounded-full py-1 text-4xl text-[#4C7766]">
         <IoCloseCircleSharp />
       </button>
       <img src={recipe.strMealThumb} alt={recipe.strMeal} className="rounded-lg mt-10 shadow-[#5ea78a] shadow-lg h-64 object-contain" />
 
-      <div className="text-lg font-semibold flex gap-6 justify-center items-center mt-10 w-full">
-        <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 rounded-full">Origin: {recipe.strArea || 'N/A'}</p>
-        <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 rounded-full">Category: {recipe.strCategory}</p>
+      <div className="text-lg font-semibold flex gap-6 justify-center items-center mt-10 w-full md:flex-row">
+        <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 sm:rounded-3xl rounded-full">Origin: {recipe.strArea || 'N/A'}</p>
+        <p className="border-2 bg-[#4C7766] text-[#EBE6E0] p-2 sm:rounded-3xl rounded-full">Category: {recipe.strCategory}</p>
         <div style={{ display: "flex", alignItems: "center" }}>
           <BsTranslate style={{ marginRight: "10px" }} className='text-4xl text-[#4C7766]' />
           <select
@@ -271,7 +272,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients, fetchAverageRati
         </div>
       </div>
 
-      <ToastContainer /> {/* Add ToastContainer for notifications */}
+      <ToastContainer />
     </div>
   );
 };

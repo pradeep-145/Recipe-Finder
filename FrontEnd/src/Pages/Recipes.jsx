@@ -22,14 +22,12 @@ const Recipes = () => {
   useEffect(() => {
     fetchRecipes();
     fetchWishlist();
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (search.trim() !== '') {
       fetchRecipes(search);
     }
-    // eslint-disable-next-line
   }, [search]);
 
   const fetchRecipes = async (searchTerm = '') => {
@@ -222,7 +220,7 @@ const Recipes = () => {
           />
         </div>
       )}
-      <ToastContainer /> {/* Add ToastContainer here */}
+      <ToastContainer />
     </div>
   );
 };
