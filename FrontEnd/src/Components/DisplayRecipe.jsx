@@ -136,7 +136,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients, fetchAverageRati
 
   const fetchCurrentAverageRating = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/recipe/${recipe.idMeal}/ratings`);
+      const response = await axios.get(`https://recipe-finder-usfp.onrender.com/recipe/${recipe.idMeal}/ratings`);
       setAverageRating(response.data.averageRating);
     } catch (error) {
       console.error('Error fetching average rating:', error.response?.data || error.message);
@@ -156,7 +156,7 @@ const DisplayRecipe = ({ recipe, setDisplayrecipe, ingredients, fetchAverageRati
 
     try {
       await axios.post(
-        `http://localhost:3000/recipe/${recipe.idMeal}/rate`,
+        `https://recipe-finder-usfp.onrender.com/recipe/${recipe.idMeal}/rate`,
         { rating: newRating },
         {
           headers: {
