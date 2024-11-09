@@ -23,22 +23,7 @@ const Register = () => {
             transition: Flip, // Set the transition to flip
         });
     };
-    useEffect(() => {
-
-        axios.get('https://recipe-finder-usfp.onrender.com/protected', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        .then(res => {
-          if(res.success){
-            navigate('/home')
-          }
-      
-      
-        }
-      )}
-        , []);
+    
 
     const notifyError = (message) => {
         toast.error(message, {
