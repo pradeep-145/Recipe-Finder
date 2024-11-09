@@ -46,7 +46,7 @@ const verifyToken = async (req, res, next) => {
   try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     req.user = decodedToken;
-   
+  
     next();
   } catch (error) {
     console.error('Error verifying token:', error);
@@ -124,7 +124,7 @@ app.post('/login', async (req, res) => {
 
 // Protected route
 app.get('/protected', verifyToken, (req, res) => {
-  return res.send(`Hello, ${req.user.email}! You are authenticated.`);
+  return res.json({success:true});
 });
 
 // POST: Add recipe to wishlist

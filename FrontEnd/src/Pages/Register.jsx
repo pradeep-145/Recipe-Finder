@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { ToastContainer,Flip, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useEffect } from 'react';
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,6 +23,22 @@ const Register = () => {
             transition: Flip, // Set the transition to flip
         });
     };
+    useEffect(() => {
+
+        axios.get('https://recipe-finder-usfp.onrender.com/protected', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => {
+          if(res.success){
+            navigate('/home')
+          }
+      
+      
+        }
+      )}
+        , []);
 
     const notifyError = (message) => {
         toast.error(message, {

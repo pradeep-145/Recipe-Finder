@@ -3,13 +3,33 @@ import axios from 'axios';
 import { useState } from 'react';
 import { ToastContainer,Bounce,Slide,Flip,Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useEffect } from 'react';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    if(localStorage.getItem('token')){
 
-    const notifySuccess = () => toast.success('Logging you in!', {
+        const token=localStorage.getItem('token');
+        useEffect(() => {
+
+        axios.get('https://recipe-finder-usfp.onrender.com/protected', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => {
+          if(res.success){
+            navigate('/home')
+          }
+      
+      
+        }
+      )}
+      , []);
+
+    }
+      const notifySuccess = () => toast.success('Logging you in!', {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,

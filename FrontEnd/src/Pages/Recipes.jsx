@@ -63,7 +63,7 @@ const Recipes = () => {
 
   const fetchAverageRating = async (recipeId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/recipe/${recipeId}/ratings`);
+      const response = await axios.get(`https://recipe-finder-usfp.onrender.com/recipe/${recipeId}/ratings`);
       setRatings(prevRatings => ({
         ...prevRatings,
         [recipeId]: response.data.averageRating
