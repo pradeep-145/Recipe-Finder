@@ -32,23 +32,26 @@ SUBSCRIPTION_KEY
    cd recipe-finder
 
 2. Install dependencies for backend
-
-    cd BackEnd
+    ```bash
+    cd BackEnd\n
     npm install
 
 
 3. Install dependencies for frontend
-    cd ../FrontEnd
+    ```bash
+    cd ../FrontEnd\n
     npm install
 
 ## Running the Application:
 
 1. Start the backend server:
-    cd BackEnd
+    ```bash
+    cd BackEnd\n
     npm start
 
 2. Start the frontend development server:
-    cd ../FrontEnd
+    ```bash
+    cd ../FrontEnd\n
     npm start
 
 3. Open your browser and navigate to http://localhost:3000.
