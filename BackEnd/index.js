@@ -25,7 +25,7 @@ admin.initializeApp({
 }); 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAOZOvZsxRv-TsZJlPafw-SbBysopG_XdA",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "recipefinder-727dd.firebaseapp.com",
   projectId: "recipefinder-727dd",
   storageBucket: "recipefinder-727dd.appspot.com",
