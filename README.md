@@ -41,25 +41,25 @@ Recipe Finder is a web application that allows users to search for recipes, view
 
 2. Install dependencies for backend
     ```bash
-    cd BackEnd\n
+    cd BackEnd
     npm install
 
 
 3. Install dependencies for frontend
     ```bash
-    cd ../FrontEnd\n
+    cd ../FrontEnd
     npm install
 
 ## Running the Application:
 
 1. Start the backend server:
     ```bash
-    cd BackEnd\n
+    cd BackEnd
     npm start
 
 2. Start the frontend development server:
     ```bash
-    cd ../FrontEnd\n
+    cd ../FrontEnd
     npm start
 
 3. Open your browser and navigate to http://localhost:3000.
